@@ -6,13 +6,38 @@
 // does cases matter? 
 // what about spaces? 
 
+// ! pre increment - before assigning the value to the variable, the value is incremented by one.
+// ! post increment - after assigning the value to the variable, the value is incremented.
+// sum = 0
+// counter = 0;
+// sum = (++counter)+(++counter)+(counter++)
+// evaluates as
+
+// sum = 0
+// counter = 0
+// For first ++counter
+// counter = counter + 1
+// sum = counter
+
+// For second ++counter
+// counter = counter + 1
+// sum = sum + counter
+
+// For first counter++
+// sum = sum + counter
+// counter = counter + 1
+
+
+
 //O(n)
 function validAnagrams(str1, str2) {
   if(str1.length !== str2.length) return false;
 
   let obj1 = {};
   let obj2 = {};
-
+  
+  // pre increment - before assigning the value to the variable, the value is incremented by one.
+  // post increment - after assigning the value to the variable, the value is incremented.
   for(let x of str1) {
     obj1[x] = ++obj1[x] || 1;
   };
@@ -20,8 +45,6 @@ function validAnagrams(str1, str2) {
   for(let x of str2) {
     obj2[x] = ++obj2[x] || 1;
   };
-
-  console.log(obj2);
 
   for(let char in obj1) {
     if(!(char in obj2)) {
@@ -34,8 +57,30 @@ function validAnagrams(str1, str2) {
   return true;
 }
 
+// refactor O(n)
+function validAnagrams(str1, str2) {
+  if(str1.length !== str2.length) return false;
 
-console.log(validAnagrams('', ''));
-console.log(validAnagrams('abc', 'cbaa'));
-console.log(validAnagrams('awesome', 'swaosme')); //true
+  let hash = {};
+
+  for(let char of str1) {
+    hash[char] ? ++hash[char] : hash[char]=1
+  }
+
+  for(let char of str2) {
+    if(!hash[char]) {
+      return false;
+    } else {
+      hash[char]--;
+      console.log(hash, char);
+      
+    }
+  }
+return true;
+}
+
+
+// console.log(validAnagrams('', ''));
+console.log(validAnagrams('aac', 'aca'));
+// console.log(validAnagrams('awesome', 'waosmee')); //true
 

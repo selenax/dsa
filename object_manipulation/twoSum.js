@@ -33,18 +33,18 @@ function twoSum(arr, target) {
   }
 }
 
-// function twoSum(arr, target) {
-//   let hash = {}; 
-//   for(let x = 0; x < arr.length; x++) {
-//     let diff = target - arr[x];
-//     if(hash[arr[x]] !== undefined) {
-//       return [x, hash[arr[x]]];
-//     } else {
-//       hash[diff] = x;
-//       console.log(hash);
-//     }
-//   }
-// }
+function twoSum(arr, target) {
+  let hash = {}; 
+  for(let x = 0; x < arr.length; x++) {
+    let diff = target - arr[x];
+    if(hash[arr[x]] !== undefined) {
+      return [x, hash[arr[x]]];
+    } else {
+      hash[diff] = x;
+      console.log(hash);
+    }
+  }
+}
 
 console.log(twoSum([1,2,3,4], 7));
 
