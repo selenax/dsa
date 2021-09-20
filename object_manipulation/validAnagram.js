@@ -68,19 +68,19 @@ function validAnagrams(str1, str2) {
   }
 
   for(let char of str2) {
+    // if no char return false;
+    // also if at this iteration hash[char] = 0(there's letter in str2 that isn't in str1), 0 = false, and ! = not therefore not false = true
     if(!hash[char]) {
       return false;
     } else {
       hash[char]--;
-      console.log(hash, char);
-      
     }
   }
 return true;
 }
 
 
-// console.log(validAnagrams('', ''));
-console.log(validAnagrams('aac', 'aca'));
-// console.log(validAnagrams('awesome', 'waosmee')); //true
+console.log(validAnagrams('', ''));
+console.log(validAnagrams('aac', 'acac'));
+console.log(validAnagrams('awesome', 'waosmee')); //true
 
