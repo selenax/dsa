@@ -15,3 +15,22 @@
 // pairElement("CTCTA") should return [["C","G"],["T","A"],["C","G"],["T","A"],["A","T"]].
 
 
+function pairElement(str) {
+  let hash = {
+    'C': 'G',
+    'G': 'C',
+    'A': 'T',
+    'T': 'A'
+  }
+
+  let result = [];
+  for(let char of str) {
+    result.push([char, hash[char]])
+  }
+  return result;
+}
+
+
+console.log(pairElement(("CTCTA")));
+console.log(pairElement("ATCGA"));
+
