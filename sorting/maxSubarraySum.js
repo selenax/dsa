@@ -2,7 +2,7 @@
 // number called n. The function should calculate the maximum sum of n consecutive
 // element in the array
 
-
+// O(n^2)
 function maxSubarraySum(array, n) {
   //edge : if n is > length, return null
   if(array.length < n) return null;
@@ -16,15 +16,16 @@ function maxSubarraySum(array, n) {
     for(let y = 0; y < n; y++) {
       sum += array[x + y]; 
     }
+    // create variable to store max 
+    // if curr sum is bigger than max, max = sum 
+      //return max 
     if(max < sum) {
       max = sum;
     }
   }
   return max;
 
-  // create variable to store max 
-    // if curr sum is bigger than max, max = sum 
-  //return max 
+
 }
 
 console.log(maxSubarraySum([1,2,5,2,7,8,1,5], 2)); // 15
