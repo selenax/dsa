@@ -9,4 +9,7 @@ function biggestNumberPossible(n) {
   return num.map(val => Number(val)).sort((a,b) => b - a).join('');
 }
 
+
 console.log(biggestNumberPossible(423865));
+console.log(biggestNumberPossible(423165));
+
