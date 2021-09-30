@@ -1,4 +1,6 @@
-function addStrings(num1, num2) {
+
+// adding numbers with char
+function addNum(num1, num2) {
   let result = 0;
   if(num1.indexOf('e') !== -1) {
       num1 = parseFloat(num1);
@@ -11,69 +13,44 @@ function addStrings(num1, num2) {
 return result + '';
 }
 
-// var addStrings = function(num1, num2) {
-//   let i = num1.length - 1;
-//   let j = num2.length - 1;
-//   let carry = 0;
-//   let sum = '';
-   
-//   for (;i >= 0 || j >= 0 || carry > 0;i--, j--) {
-//       const digit1 = i < 0 ? 0 : num1.charAt(i) - '0';
-//       console.log(i);
-      
-//       console.log(digit1);
-//       console.log(num1.charAt(i) - '0');
-      
-
-//       const digit2 = j < 0 ? 0 : num2.charAt(j) - '0';
-//       console.log(digit2);
-//       const digitsSum = digit1 + digit2 + carry;
-//       console.log(digitsSum, typeof digitsSum);
-      
-//       sum = digitsSum % 10 + sum;
-//       console.log(typeof sum);
-//       console.log(sum);
-      
-//       carry = Math.floor(digitsSum / 10);
-//       console.log(carry);
-//   }
-
-//   return sum;
-// };
+console.log(addNum('2e', '32'))
+console.log(addNum('3e', '32'))
+console.log(addNum('3.2', '3.33'))
 
 
-// console.log(addStrings("9333852702227987", "85731737104263")) //9419584439332250"
-// console.log(addStrings("9", "8"))
+/* --------------------------------- */
 
-// console.log(addStrings('2e', '32'))
-// console.log(addStrings('3e', '32'))
-// console.log(addStrings('3.2', '3.33'))
-function add(A, B) {
-  let l1 = A.length-1;
-  let l2 = B.length-1;
+// adding strings with no char
+function addStrings(num1, num2) {
+  let l1 = num1.length-1;
+  let l2 = num2.length-1;
 
   let carry = 0, sum = '', result = '';
 
   while(l1 >= 0 || l2 >=0 || carry > 0) {
-    let dig1 = +A.charAt(l1--) 
-    let dig2 = +B.charAt(l2--) 
+    //convert each char to digit
+    let dig1 = +num1.charAt(l1--) 
+
+    let dig2 = +num2.charAt(l2--) 
 
     let sum = carry + dig1 + dig2
 
-    // sum % 10 => will yield the right most digit. 12%10 = 2
-    
+    // sum % 10 => will yield the right most digit. if 12%10 = 2, storing 2 in result
     result = sum % 10 + result
-    // only care about if carry is 10 or bigger 
+    
+    //accumlate result one digt at a time.
+
+    // only care about if sum that is 10 or bigger so can carry the 1 to add back in next iteration
     carry = Math.floor(sum/10) 
-    console.log(carry);
   }
   if(carry) { 
     result = carry + result
   }
   
-return Number(result).toString() ;
+return result;
 }
 
-console.log(add('9', '2255'));
-console.log(add("9333852702227987", "85731737104263"))
-
+console.log(addStrings('9', '2255'));
+console.log(addStrings("9333852702227987", "85731737104263"))
+console.log(addStrings("34", "27"))
+console.log(addStrings('941958443933225232', '524423423423343'));
