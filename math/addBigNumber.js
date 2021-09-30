@@ -28,14 +28,16 @@ return result + '';
 //       const digit2 = j < 0 ? 0 : num2.charAt(j) - '0';
 //       console.log(digit2);
 //       const digitsSum = digit1 + digit2 + carry;
-//       sum = `${digitsSum % 10}${sum}`;
+//       console.log(digitsSum, typeof digitsSum);
+      
+//       sum = digitsSum % 10 + sum;
+//       console.log(typeof sum);
 //       console.log(sum);
       
 //       carry = Math.floor(digitsSum / 10);
 //       console.log(carry);
-      
 //   }
-  
+
 //   return sum;
 // };
 
@@ -47,59 +49,34 @@ return result + '';
 // console.log(addStrings('3e', '32'))
 // console.log(addStrings('3.2', '3.33'))
 function add(A, B) {
-  const AL = A.length
-  const BL = B.length
-  const ML = Math.max(AL, BL)
+  let l1 = A.length-1;
+  let l2 = B.length-1;
 
   let carry = 0, sum = '', result = '';
 
-  for (let i = 1; i <= ML; i++) {
-    // console.log(carry, +A.charAt(AL - i), +B.charAt(BL - i) );
+  while(l1 >= 0 || l2 >=0 || carry > 0) {
+    let dig1 = +A.charAt(l1--) 
+    let dig2 = +B.charAt(l2--) 
+    console.log(dig2);
     
-    let sum = carry + +A.charAt(AL - i) + +B.charAt(BL - i) 
+    let sum = carry + dig1 + dig2
     console.log(sum);
     
-    //sum % 10 => will yield the right most digit. 12%10 = 2
-   result = sum % 10
+    // sum % 10 => will yield the right most digit. 12%10 = 2
+    
+   result = sum % 10 + result
    console.log(result);
-   
-    
-    //only care about if carry is 10 or bigger 
-    carry = Math.floor(sum/10)
-
-    
-    
+   console.log(typeof result);
+    // only care about if carry is 10 or bigger 
+    carry = Math.floor(sum/10) 
+    console.log(carry);
   }
-  console.log(carry);
-if(carry) { result = carry.toString() + result}
+
+if(carry) { result = carry + result}
   
 return result;
 }
-// var addStrings = function(num1, num2) {
-//   let carry = 0,
-//       result = "",
-//       i1 = num1.length - 1,
-//       i2 = num2.length - 1;
-  
-//   while(i1>=0 || i2>=0){
-//       const val1 = num1[i1--] || 0;
-//       const val2 = num2[i2--] || 0;
-//       console.log('val1=',val1, 'val2=',val2, 'carry=', carry);
-      
-//       const sum = +val1 + +val2 + carry;
-//       console.log(sum);
-      
-//       // result = sum % 10 + result;
-//       // console.log();
-      
-//       carry = Math.trunc(sum / 10); 
-//   }
 
+console.log(add('9', '63'));
+console.log(add("9333852702227987", "85731737104263"))
 
-//   if(carry) result = carry + result;
-  
-//   return result
-// };
-
-console.log(add('9', ' 44'));
-// console.log(add('9333852702227987', '85731737104263'));
