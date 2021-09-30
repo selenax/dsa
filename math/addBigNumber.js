@@ -57,26 +57,23 @@ function add(A, B) {
   while(l1 >= 0 || l2 >=0 || carry > 0) {
     let dig1 = +A.charAt(l1--) 
     let dig2 = +B.charAt(l2--) 
-    console.log(dig2);
-    
+
     let sum = carry + dig1 + dig2
-    console.log(sum);
-    
+
     // sum % 10 => will yield the right most digit. 12%10 = 2
     
-   result = sum % 10 + result
-   console.log(result);
-   console.log(typeof result);
+    result = sum % 10 + result
     // only care about if carry is 10 or bigger 
     carry = Math.floor(sum/10) 
     console.log(carry);
   }
-
-if(carry) { result = carry + result}
+  if(carry) { 
+    result = carry + result
+  }
   
-return result;
+return Number(result).toString() ;
 }
 
-console.log(add('9', '63'));
+console.log(add('9', '2255'));
 console.log(add("9333852702227987", "85731737104263"))
 
