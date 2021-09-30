@@ -4,9 +4,7 @@ function addNum(num1, num2) {
   let result = 0;
   if(num1.indexOf('e') !== -1) {
       num1 = parseFloat(num1);
-      result = num1 * 10 ** parseFloat(num2)
-      console.log('asdfs');
-      
+      result = num1 * 10 ** parseFloat(num2)      
   } else {
      result = parseFloat(num1) + parseFloat(num2) 
   }
@@ -46,7 +44,6 @@ function addStrings(num1, num2) {
   if(carry) { 
     result = carry + result
   }
-  
 return result;
 }
 
