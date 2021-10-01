@@ -1,23 +1,3 @@
-
-// adding numbers with char
-function addNum(num1, num2) {
-  let result = 0;
-  if(num1.indexOf('e') !== -1) {
-      num1 = parseFloat(num1);
-      result = num1 * 10 ** parseFloat(num2)      
-  } else {
-     result = parseFloat(num1) + parseFloat(num2) 
-  }
-return result + '';
-}
-
-console.log(addNum('2e', '32'))
-console.log(addNum('3e', '32'))
-console.log(addNum('3.2', '3.33'))
-
-
-/* --------------------------------- */
-
 // adding strings with no char
 function addStrings(num1, num2) {
   let l1 = num1.length-1;
@@ -41,9 +21,8 @@ function addStrings(num1, num2) {
     // only care about if sum that is 10 or bigger so can carry the 1 to add back in next iteration
     carry = Math.floor(sum/10) 
   }
-  if(carry) { 
-    result = carry + result
-  }
+  console.log(result);
+  
 return result;
 }
 
@@ -51,3 +30,26 @@ console.log(addStrings('9', '2255'));
 console.log(addStrings("9333852702227987", "85731737104263"))
 console.log(addStrings("34", "27"))
 console.log(addStrings('941958443933225232', '524423423423343'));
+
+
+
+/* --------------------------------- */
+// adding numbers with decimal
+function addNum(num1, num2) {
+  let result = 0;
+  if(num1.indexOf('e') !== -1) {
+      num1 = parseFloat(num1);
+      result = num1 * 10 ** parseFloat(num2)      
+  } else {
+     result = parseFloat(num1) + parseFloat(num2) 
+  }
+return result + '';
+}
+
+console.log(addNum('2e', '32'))
+console.log(addNum('3e', '32'))
+console.log(addNum('3.2', '3.33'))
+
+
+
+
