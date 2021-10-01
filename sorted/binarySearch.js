@@ -7,28 +7,28 @@
 // Otherwise, narrow it to the upper half. Repeatedly check until the value is found or the interval is empty.
 
 // O(log n)
-// function binarySearch(arr, k) {
-//   //divide arr in half to find midpoint - math floor 
-//     //check to see if target = to midpoint, return index if matched
-//       //else if target is bigger than midpoint
-//         //start = midpoint, end = arr.length - 1
-//       //else target is smaller than midpoint 
-//         //start = 0, end = midpoint
-//     //else no match found, return -1  
-//     let start = 0;
-//     let end = arr.length-1;
-//     while(start <= end) {
-//       let mid = Math.floor((start + end)/2)
-//       if(arr[mid] === k) {
-//         return 
-//       } else if (arr[mid] < k) {
-//         start = mid + 1;
-//       } else if(arr[mid] > k) {
-//         end = mid - 1 ;
-//       } 
-//     }
-//     return -1
-// }
+function binarySearch(arr, k) {
+  //divide arr in half to find midpoint - math floor 
+    //check to see if target = to midpoint, return index if matched
+      //else if target is bigger than midpoint
+        //start = midpoint, end = arr.length - 1
+      //else target is smaller than midpoint 
+        //start = 0, end = midpoint
+    //else no match found, return -1  
+    let start = 0;
+    let end = arr.length-1;
+    while(start <= end) {
+      let mid = Math.floor((start + end)/2)
+      if(arr[mid] === k) {
+        return 
+      } else if (arr[mid] < k) {
+        start = mid + 1;
+      } else if(arr[mid] > k) {
+        end = mid - 1 ;
+      } 
+    }
+    return -1
+}
 
 // refactor
 function binarySearch(arr, k) {
@@ -46,23 +46,23 @@ function binarySearch(arr, k) {
   return arr[mid] === k ? mid : -1;
 }
 
-recursion O(log n)
-// function binarySearch(arr, k) {
-//   function search(arr, k, start, end) {
-//     if(start <= end) {
-//       let mid = Math.floor((start + end)/2)
-//       if(arr[mid] === k) return mid;
-//       if(arr[mid] < k) {
-//         return search(arr, k, start = mid + 1, end)
-//       }
-//       if(arr[mid] > k) {
-//         return search(arr, k , start, end = mid - 1)
-//       }
-//     }
-//       return -1;
-//   }
-//   return search(arr, k, 0, arr.length-1)
-// }
+// refactor - recursion O(log n)
+function binarySearch(arr, k) {
+  function search(arr, k, start, end) {
+    if(start <= end) {
+      let mid = Math.floor((start + end)/2)
+      if(arr[mid] === k) return mid;
+      if(arr[mid] < k) {
+        return search(arr, k, start = mid + 1, end)
+      }
+      if(arr[mid] > k) {
+        return search(arr, k , start, end = mid - 1)
+      }
+    }
+      return -1;
+  }
+  return search(arr, k, 0, arr.length-1)
+}
 
                          //0,1,2,3,4,5 len = 6
 console.log(binarySearch([-1,0,3,5,9,12], 2));
