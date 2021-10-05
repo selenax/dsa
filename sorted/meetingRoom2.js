@@ -28,10 +28,10 @@ for(let x = 1; x < intervals.length; x++) {
   // the earliest of the occupied room to become avaiable 
   let earliestEndingMeeting = Math.min(...room)
 
-  // if start time is smaller than the last ending time
+  // if we are starting a meeting before the earliest meeting ends
     // need to add a room
-  // else if don't need to add a room
-    // that means we are going to take the room that has with meeting ending sooner (Math.min)
+  // else 
+    // that means we are going to take the room with meeting ending soonest (Math.min)
     // once we take that room, the current end time will indicate when the room will become avaiable again
     // therefore replace the earliest meeting end time with the current end time.
   if(start < earliestEndingMeeting) {
@@ -53,6 +53,7 @@ console.log(minMeetingRooms([[2,11],[6,16],[10,16],[2,20]]));
 [2      11]
 [2                   20]
     [6        16]
-      [10     16]
+       [11    16]
 
 */
+
