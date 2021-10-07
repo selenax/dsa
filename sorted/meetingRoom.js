@@ -14,7 +14,7 @@
 // Meetings [1,4] and [2,5] overlap with each other.
 
 //O(nlogn + n)
-function meetingRoom(intervals) {
+function canAttendMeetings(intervals) {
   if(!intervals || intervals.length === 1) return true;
   //it's overlapping when interval[1] > interval2[0]
   intervals.sort((a,b) => a[0]-b[0]);
@@ -31,7 +31,7 @@ function meetingRoom(intervals) {
 }
 
 
-console.log(meetingRoom([[6,7],[2,4],[8,12]]));
-console.log(meetingRoom([[1,4],[2,5],[7,9]]));
-console.log(meetingRoom([[6,8],[2,6],[1,4]]));
-console.log(meetingRoom([[7,10],[2,4]]));
+console.log(canAttendMeetings([[6,7],[2,4],[8,12]]));
+console.log(canAttendMeetings([[1,4],[2,5],[7,9]]));
+console.log(canAttendMeetings([[6,8],[2,6],[1,4]]));
+console.log(canAttendMeetings([[7,10],[2,4]]));
