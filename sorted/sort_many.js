@@ -7,6 +7,18 @@ let result = ['banana', 'cherry', 'apple' ]
 // small to big 
 // then big to small
 
+// ! STUDY ! 
+/*
+> 0	sort b before a
+< 0	sort a before b
+
+ascending
+a < b ? -1 : 1
+
+descending
+a < b ? 1 : -1
+*/
+
 function sortList(arr) {
   let result = [];
   let hash = {};
@@ -37,11 +49,3 @@ function sortItem(a,b) {
 console.log(JSON.stringify(sortList(arr)) === JSON.stringify(result));
 console.log(Array.isArray(sortList(arr)) == true);
 
-// > 0	sort b before a
-// < 0	sort a before b
-
-// ascending
-// a < b ? -1 : 1
-
-// descending
-// a < b ? 1 : -1
