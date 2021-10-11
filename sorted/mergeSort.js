@@ -1,7 +1,18 @@
 // Given 2 sorted arrays, merge and return one sorted array
+// divide and conquer
+
+//recursive calls [1,3,5,19,2,4]
+//[1,3,5]
+//[1],[3],[5]
+//[1],[3,5]
+//[1,3,5] = left
+//[19,2,4] will repeat the above steps
+
+//final call will be [1,3,5] [2,4,19] to sort and merge together 
 
 
-//O(n log(n)) space O(n)
+
+//O(n log(n)) space O(n) since not sorting in-place. 
 function merge(arr1, arr2) {
   let i = 0, j = 0;
   let result = [];
@@ -26,17 +37,38 @@ function merge(arr1, arr2) {
   return result;
   }
 
-
-
-
-function mergeSort(arr) {
-
+// refactor merge function
+function merge(arr1, arr2) {
+  let result = [];
+  while(arr1.length && arr2.length) {
+    if(arr1[0] < arr2[0]) {
+      result.push(arr1.shift())
+    } else {
+      result.push(arr2.shift())
+    }
+  }
+  // concate any over elements from arr1 or arr2 
+  return [...result, ...arr1, ...arr2];
 }
 
 
+// divide part: keep splitting array til each value is in it's own array
+// then call merge function to sort it individually and merge these two arrays together. Then sort again and merge 
+function mergeSort(arr) {
+//base case 
+if(arr.length <= 1) return arr;
 
-console.log(mergeSort([1,3,5], [2,4,5,6]));
-console.log(mergeSort([1,10,50], [2,14,99,100]));
-console.log(mergeSort([], [2,14,99,100]));
+let half = Math.floor(arr.length/2); //3
+let left = mergeSort(arr.slice(0,half));
+let right = mergeSort(arr.slice(half))
+return merge(left, right)
+}
+
+
+console.log(mergeSort([1,3,5,19,2,4]));
+
+
+console.log(mergeSort([99, 1, 22, 111, 100]));
+console.log(mergeSort([]));
 
 
