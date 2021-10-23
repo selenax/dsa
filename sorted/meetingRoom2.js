@@ -43,10 +43,10 @@ for(let x = 1; x < intervals.length; x++) {
 }
   return room.length;
 };
-// console.log(minMeetingRooms([[0,30],[5,10],[15,20]])); 2
-// console.log(minMeetingRooms([[7,10],[2,4]])); //1
-// console.log(minMeetingRooms([[5,10],[15,20],[5,30]]));
-// console.log(minMeetingRooms([[2,11],[6,16],[11,16]]));
+console.log(minMeetingRooms([[0,30],[5,10],[15,20]])); 2
+console.log(minMeetingRooms([[7,10],[2,4]])); //1
+console.log(minMeetingRooms([[5,10],[15,20],[5,30]]));
+console.log(minMeetingRooms([[2,11],[6,16],[11,16]]));
 console.log(minMeetingRooms([[2,11],[6,16],[10,16],[2,20]]));
 /*
 
