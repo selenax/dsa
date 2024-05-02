@@ -56,6 +56,16 @@ var obj = {
   ],
 };
 
+var obj2 = {
+  a: {
+    b: {
+      c: 12,
+      j: false,
+    },
+    k: null,
+  },
+};
+
 function search(obj, path) {
   let arr = [];
 
@@ -73,26 +83,46 @@ function search(obj, path) {
 
   // For each item in the path, dig into the object
   for (var i = 0; i < arr.length; i++) {
-    // if doesn't have prop we are looking for, return undefined
-    if (!current[arr[i]]) return undefined;
-
-    // assign current object location to variable
-    current = current[arr[i]];
+    // handle edge case on typeError when lookup in null cache
+    try {
+      // if doesn't have prop we are looking for, return undefined
+      if (!current.hasOwnProperty(arr[i])) return undefined;
+      // assign current object location to variable
+      current = current[arr[i]];
+    } catch {
+      return undefined;
+    }
   }
   // if loop finishes, it means we found our match
   return current;
 }
 
-console.log(search(store, '[book][1]'));
-/*    
-{
-	category: 'fiction',
-	author: 'Evelyn Waugh',
-	title: 'Sword of Honour',
-	price: 12.99,
-}
- */
-console.log(search(store, 'book[0][category]')); //reference
-console.log(search(obj, 'a[0].b.c')); //3
-console.log(search(obj, ['a', '0', 'b', 'c'])); //3
-console.log(search(obj, 'a.b.c')); //undefined
+// console.log(search(store, '[book][1]'));
+// /*
+// {
+// 	category: 'fiction',
+// 	author: 'Evelyn Waugh',
+// 	title: 'Sword of Honour',
+// 	price: 12.99,
+// }
+//  */
+// console.log(search(store, 'book[0][category]')); //reference
+// console.log(search(obj, 'a[0].b.c')); //3
+// console.log(search(obj, ['a', '0', 'b', 'c'])); //3
+// console.log(search(obj, 'a.b.c')); //undefined
+
+// console.log(search(obj2, 'a.b.c')); // 12
+// console.log(search(obj2, 'a.b')); // {c: 12, j: false}
+// console.log(search(obj2, 'a.b.d')); // undefined
+// console.log(search(obj2, 'a.c')); // undefined
+// console.log(search(obj2, 'a.b.c.d')); // undefined
+// console.log(search(obj2, 'a.b.c.d.e')); // undefined
+// console.log(search(obj2, 'a.b.j')); //false
+// console.log(search(obj2, 'a.b.j.k')); //undefined
+// console.log(search(obj2, 'a.k')); //null
+
+// edge cases
+// console.log(search(obj2, 'a.k.j')); // undefined  (throws error looking for j when k is null)
+
+// tip: cache become toString function - hasOwnProperty checks for direct props, returns false on inherited prop
+console.log(search(obj2, 'a.toString')); // undefined
