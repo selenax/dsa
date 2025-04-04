@@ -36,7 +36,7 @@ const isPowerOfTwo = (n) => {
 
 //ALGORITHM: Time: O(1) static function using 1 arithmetic operation
 //NOTE: Math.log2() return base 2 log of any #; return false if answer is not whole number as all power of 2 should be divisible by 2
-//** don't use Math.log() - it calculates the natural logarithm where e = 2.718...Math.log(n)/Math.log(2) wouldn't work
+//same result using Math.log(n)/Math.log(2) - where Math.log() uses nature logarithm where e = 2.718
 const isPowerOfTwo2 = (n) => {
 	if (n <= 0) return false;
 	return Number.isInteger(Math.log2(n));
