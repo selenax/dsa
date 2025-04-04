@@ -32,14 +32,20 @@ Explanation :
                16
 */
 
-//a value as a power of 2 is the square of of that value 
 
+
+//ALGORITHM: TIME: O(1)
+const nearestPowerOfTwo = function(n) {
+  //Math.log2 return base 2 log of any number meaning it returns the exponent in 2^exponent = n;
+  let exp = Math.floor(Math.log2(n))  
+  return Math.pow(2, exp)
+}
+
+//ALGORITHM: Time: O(N)
 function highestPowerof2(n) {
 	let res = 0;
 	for (let i = n; i >= 1; i--) {
-		// If i is a power of 2
-		// console.log(i, '=i','i-1=', i-1);
- //NOTE: 
+ //two's complement and bitwise AND results in turning rightmost 1-bit off. Since a power of 2 has only 1 bit, we would get 0
 		if ((i & (i - 1)) == 0) {
 			res = i;            
 			break;
@@ -48,18 +54,12 @@ function highestPowerof2(n) {
 	return res;
 }
 
-const nearestPowerOfTwo = function(n) {
-    let exp = Math.floor(Math.log(n) / Math.log(2))
-    return Math.pow(2, exp)
-  }
 
-console.log(highestPowerof2(10)); //8
-console.log(highestPowerof2(19)); //16
-console.log(highestPowerof2(32)); //32
+
+// console.log(highestPowerof2(10)); //8
+// console.log(highestPowerof2(19)); //16
+// console.log(highestPowerof2(32)); //32
 console.log(nearestPowerOfTwo(10)); //8
-console.log(nearestPowerOfTwo(19)); //16?
-console.log(nearestPowerOfTwo(32)); //32
-// console.log(8&7);
-// console.log(9&8);
-// console.log(10&9);
+// console.log(nearestPowerOfTwo(19)); //16?
+// console.log(nearestPowerOfTwo(32)); //32
 
