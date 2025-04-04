@@ -23,9 +23,9 @@
 // 8/2=4
 // 4/2=2
 // 2/2=1
-const isPowerOfTwo2 = (n) => {
+const isPowerOfTwo = (n) => {
 	// 2^0=1, therefore 1 is the smallest value for n
-	if (n === 0) return false;
+	if (n <= 0) return false;
 	// if it's divisible by 2, keep dividing
 	while (n % 2 == 0) {
 		n = n / 2;
@@ -35,8 +35,10 @@ const isPowerOfTwo2 = (n) => {
 };
 
 //ALGORITHM: Time: O(1) static function using 1 arithmetic operation
-//NOTE: Math.log2() return base 2 logarithm of a # whereas Math.log() calculates the natural logarithm where e = 2.718...Math.log(n)/Math.log(2) wouldn't work
-const isPowerOfTwo = (n) => {
+//NOTE: Math.log2() return base 2 log of any #; return false if answer is not whole number as all power of 2 should be divisible by 2
+//** don't use Math.log() - it calculates the natural logarithm where e = 2.718...Math.log(n)/Math.log(2) wouldn't work
+const isPowerOfTwo2 = (n) => {
+	if (n <= 0) return false;
 	return Number.isInteger(Math.log2(n));
 };
 
@@ -65,7 +67,7 @@ const isPowerOfTwo4 = (n) => {
 	return (n & (n - 1)) == 0;
 };
 
-// console.log(isPowerOfTwo4(2147483648));
+console.log(isPowerOfTwo(2147483648));
 // console.log(isPowerOfTwo4(8));
 // console.log(isPowerOfTwo2(536870912));
 // console.log(isPowerOfTwo3(0));
