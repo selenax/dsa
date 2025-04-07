@@ -53,7 +53,6 @@ const isPowerOfTwo3 = (n) => {
 	// this operation isolated the rightmost 1-bit, results in x itself, since a power of 2 contains just one 1-bit, followed by some zeros
 	// 2 = 10, 4 = 100, 8 = 1000
 	// (Other numbers have more than 1-bit in their binary representation and hence for them x & (-x) would not be equal to x itself)
-	console.log(-n);
 	return (n & -n) == n;
 };
 
@@ -64,6 +63,11 @@ const isPowerOfTwo4 = (n) => {
 	// subtract 1 means change rightmost 1-bit to 0.
 	// AND operator: the rightmost 1-bit will be turned off because 1 & 0 = 0;
 	// power of 2 has one 1-bit, hence result is 0;
+	/* 	  		100
+	100-1= 		011 
+	bitwise AND	---
+				000
+	*/
 	return (n & (n - 1)) == 0;
 };
 
