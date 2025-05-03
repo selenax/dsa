@@ -14,20 +14,8 @@
 // Input: nums = [3,3], target = 6
 // Output: [0,1]
 
-// function twoSum(arr, target) {
-//   let hash = {};
-//   for(let x = 0; x < arr.length; x++) {
-//     let diff = target - arr[x];
-//     if(hash[arr[x]] !== undefined) {
-//       return [x, hash[arr[x]]];
-//     } else {
-//       hash[diff] = x;
-//       console.log(hash);
-//     }
-//   }
-// }
 
-//ALGORITHM: TIME:O(N^2) - nested loops; SPACE:O(1)
+// ALGORITHM: TIME:O(N^2) - nested loops; SPACE:O(1)
 const twoSum = (arr, target) => {
 	//using 2 for loops to check for every possible sum
 	//if matched target, return those indices
@@ -38,7 +26,22 @@ const twoSum = (arr, target) => {
 	}
 };
 
-//ALGORITHM: TIME:O(N) - forLoop & hashMap; SPACE:O(N)
+// refactor Time:O(N) Space: O(1)
+function twoSum(arr, target) {
+	let hash = {};
+	for(let x = 0; x < arr.length; x++) {
+	  let diff = target - arr[x];
+	  if(hash[arr[x]] !== undefined) {
+		return [x, hash[arr[x]]];
+	  } else {
+		hash[diff] = x;
+		console.log(hash);
+	  }
+	}
+  }
+
+// refactor
+// ALGORITHM: TIME:O(N) - forLoop & hashMap; SPACE:O(N)
 const twoSum2 = (arr, target) => {
 	//initialize hashmap to store values for lookup
 	//iterate array using for loop
@@ -55,7 +58,7 @@ const twoSum2 = (arr, target) => {
 	}
 };
 
-//! What if theres more than 1 pair of answer
+//Add complexity: What if theres more than 1 pair of answer
 /*
   i=   0 1 2 3 5
   arr=[2,2,3,4,4] k=6
