@@ -57,21 +57,24 @@ const twoSum2 = (arr, target) => {
 
 //! What if theres more than 1 pair of answer
 /*
-  i= 0 1 2 3
-    [2,2,3,4,4] k=6
+  i=   0 1 2 3 5
+  arr=[2,2,3,4,4] k=6
 
     6-2=4 {4:[0,1]}
     6-3=3 {3:[3]}
     
-    TODO - return smallest indices (THIS WAS INTERVIEWED)
+    TODO - find all pairs and return pair with smallest indices (THIS WAS INTERVIEWED)
+    hash[diff].push(i)
+
     if key found in hash, we know that there's an array with at least 1 index
-    if(hash[diff] !== undefined) {
-      return [currIndex, hash[diff][0]]
-    }
+      if(hash[diff] !== undefined) {
+        return [currIndex, hash[diff][0]]
+      }
     TODO - return all pairs 
     initialize empty array to store result
-    if key is found and arr.len !== 0 
-    result.push([currIndex, hash[diff].pop()])
+    if key is found 
+      while arr.len !== 0 
+        result.push([currIndex, hash[diff].pop()])
 */
 
 // console.log(twoSum([1,2,3,4], 7)); //[2,3]
