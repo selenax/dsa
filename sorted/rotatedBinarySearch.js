@@ -95,7 +95,7 @@ const search2 = (nums, target) => {
 
         if(nums[mid] === target) {
             return mid
-        } else if(nums[start] <= nums[mid]) { // '<=' because incase when start and mid lands in same number. ex:[3,1]
+        } else if(nums[start] <= nums[mid]) { // '<=' because incase when start and mid lands in same number. ex:[3,1] k=1
             if(nums[start] <= target && target < nums[mid]) end = mid - 1;
             else start = mid + 1;
         } else {
@@ -108,6 +108,6 @@ const search2 = (nums, target) => {
 
 
 
-console.log(search([4, 5, 6, 7, 0, 1, 2], 0)); //4
+// console.log(search([4, 5, 6, 7, 0, 1, 2], 0)); //4
 // console.log(search([3, 4, 5, 1, 2], 2)); //4
 // console.log(search([3,1]), 3); //0
