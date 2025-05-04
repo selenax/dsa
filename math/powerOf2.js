@@ -39,7 +39,7 @@ const isPowerOfTwo = (n) => {
 //same result using Math.log(n)/Math.log(2) - where Math.log() uses nature logarithm where e = 2.718
 const isPowerOfTwo2 = (n) => {
 	if (n <= 0) return false;
-	return Number.isInteger(Math.log2(n));
+	return Math.log2(n) % 2 == 1;
 };
 
 //ALGORITHM: Time: O(1) - isolate rightmost 1-bit
@@ -57,10 +57,12 @@ const isPowerOfTwo3 = (n) => {
 };
 
 //ALGORITHM: Time: O(1) - turn off rightmost 1-bit
+//Power of two has just one 1-bit.
+//x & (x - 1) sets this 1-bit to zero, and hence one has to verify if the result is zero x & (x - 1) == 0.
 const isPowerOfTwo4 = (n) => {
 	//lowest power of 2 is 1
 	if (n <= 0) return false;
-	// subtract 1 means change rightmost 1-bit to 0.
+	// To subtract 1 means change rightmost 1-bit to 0.
 	// AND operator: the rightmost 1-bit will be turned off because 1 & 0 = 0;
 	// power of 2 has one 1-bit, hence result is 0;
 	/* 	  		100
@@ -71,7 +73,7 @@ const isPowerOfTwo4 = (n) => {
 	return (n & (n - 1)) == 0;
 };
 
-console.log(isPowerOfTwo(2147483648));
-// console.log(isPowerOfTwo4(8));
+// console.log(isPowerOfTwo2(2147483648));
+console.log(isPowerOfTwo2(8));
 // console.log(isPowerOfTwo2(536870912));
 // console.log(isPowerOfTwo3(0));
