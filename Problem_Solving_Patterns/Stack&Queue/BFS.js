@@ -5,7 +5,7 @@
 //TIME: O(V+E); SPACE: O(V)
     // v=#of vertices in the graph, e=#of edges
     // explanation: O(V) = visits every node; O(E) = each edge rep the # of child node it has. 
-function breathFirstSearch(root) {
+function bfs(root) {
 	//empty array to store node values
 	const result = [];
 
@@ -31,4 +31,21 @@ function breathFirstSearch(root) {
 	}
 	return result;
 }
-[]
+
+// function createNode(value, left = null, right = null) {
+//     return { value, left, right };
+//   }
+  
+
+  const tree = createNode(1,
+    createNode(2,
+      createNode(4),
+      createNode(5)
+    ),
+    createNode(3,
+      createNode(6),
+      createNode(7)
+    )
+  );
+  console.log(bfs(tree));
+  
