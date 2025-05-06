@@ -15,6 +15,7 @@
 
 //O(nlogn + n)
 function canAttendMeetings(intervals) {
+  
   if(!intervals || intervals.length === 1) return true;
   //it's overlapping when interval[1] > interval2[0]
   intervals.sort((a,b) => a[0]-b[0]);
