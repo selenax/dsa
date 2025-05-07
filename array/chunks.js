@@ -21,6 +21,8 @@ const chunks = (arr, size) => {
 };
 
 // refactor
+// Time:O(N) SPACE:O(N) 
+// reason why it's not O(log N) even though running n/size iterations: slice is still iterating through each element of the array. 
 const chunks2 = (arr, size) => {
 	let result = [];
 	//increment x by size
