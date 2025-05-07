@@ -1,5 +1,6 @@
 // Write a function that splits an array (first argument) into groups the length of size (second argument) and returns them as a two-dimensional array.
 
+//ALGORITHM TIME:O(N) SPACE:O(N)
 const chunks = (arr, size) => {
 	let subArray = [];
 	let result = [];
