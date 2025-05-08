@@ -51,6 +51,21 @@ const numberOfSteps = (num) => {
 	return step;
 };
 
+// refactor
+const numberOfSteps2 = (num) => {
+	let step = 0;
+	while (num != 0) {
+		if (num % 2 === 0) {
+			num /= 2;
+			step++;
+		} else {
+			num--;
+			step++;
+		}
+	}
+	return step;
+};
+
 console.log(numberOfSteps(14)); //6
-console.log(numberOfSteps(8)); //4
-console.log(numberOfSteps(123)); //12
+console.log(numberOfSteps2(8)); //4
+console.log(numberOfSteps2(123)); //12
