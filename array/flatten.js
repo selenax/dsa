@@ -3,7 +3,8 @@
 // console.log(flattenArray([1, [2], [3, [[4]]]])); //[ 1, 2, 3, 4 ]
 // console.log(flattenArray([[['a']], [['b']]])); //[ 'a', 'b' ]
 
-// TIME:O(N+D) SPACE:O(N+D); D=depth of nesting
+// ALGORITHM: RECURSIVE
+// TIME:O(N+D) SPACE:O(N+D); N=each recursive level; D=depth of nesting(# of callstacks)
 const flattenArray = (arr) => {
 	//inital empty array to store result;
 	let result = [];
@@ -30,8 +31,8 @@ const flattenArray = (arr) => {
 	return result;
 };
 
-// refactor
-// TIME: O(N); worst case:O(N + D), D=depth of nesting
+// ALGORITHM: RECURSIVE USING CONCAT
+// TIME:O(N+D) SPACE:O(N+D); N=each recursive level; D=depth of nesting
 const flattenArray2 = (arr) => {
 	//concat flattens 1 level deep, so each call flattens 1 level
 	let result = [].concat(...arr);
@@ -47,7 +48,7 @@ const flattenArray2 = (arr) => {
 // console.log(flattenArray([1, [], [3, [[4]]]])); // [1, 3, 4]
 // console.log(flattenArray2([1, {}, [3, [[4]]]])); // [1, {}, 3, 4]
 
-// refactor: USING STACK
+// ALGORITHM: USING STACK
 // TIME:O(N) SPACE:O(N)
 const flattenArray3 = (arr) => {
 	let result = [];
@@ -83,8 +84,8 @@ const flattenArray4 = (arr) => {
 	return result.reverse();
 };
 
-// refactor: USING QUEUE
-// TIME: O(N)
+// ALGORITHM: USING QUEUE
+// TIME:O(N) SPACE:O(N)
 const flattenArray5 = (arr) => {
 	let result = [];
 	// create copy to avoid mutation
