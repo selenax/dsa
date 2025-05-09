@@ -82,4 +82,18 @@ const flattenArray4 = (arr) => {
 	// elements were added in reverse order
 	return result.reverse();
 };
-console.log(flattenArray4([3, [[4]]]));
+
+// refactor: USING QUEUE
+// TIME: O(N)
+const flattenArray5 = (arr) => {
+	let result = [];
+	// create copy to avoid mutation
+	let stack = [...arr];
+
+	while (stack.length) {
+		const current = stack.shift();
+		Array.isArray(current) ? stack.unshift(...current) : result.push(current);
+	}
+	return result;
+};
+console.log(flattenArray5([3, [[4]]]));
