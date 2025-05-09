@@ -65,7 +65,7 @@ const flattenArray3 = (arr) => {
 		}
 	}
 
-	// elements were added in reverse order
+	// perserve original order since worked from back to front;
 	return result.reverse();
 };
 
@@ -85,7 +85,8 @@ const flattenArray4 = (arr) => {
 };
 
 // ALGORITHM: USING QUEUE
-// TIME:O(N) SPACE:O(N)
+// TIME:O(N) - best case: if each array item was only visited once; worst case:O(n^2): deeply nested, causing mulitiple reindexing
+// SPACE:O(N)
 const flattenArray5 = (arr) => {
 	let result = [];
 	// create copy to avoid mutation
@@ -97,4 +98,26 @@ const flattenArray5 = (arr) => {
 	}
 	return result;
 };
-console.log(flattenArray5([3, [[4]]]));
+
+// ALGORITHM: USING SPLICE
+// TIME:O(N) SPACE:O(N)
+const flattenArray6 = (arr) => {
+	let result = [];
+	let stack = [...arr];
+	let i = 0;
+
+	while (i < stack.length) {
+		let item = stack[i];
+		if (Array.isArray(item)) {
+			//take all elements inside array and insert it back in place
+			stack.splice(i, 1, ...item);
+		} else {
+			result.push(item);
+			//check next index;
+			i++;
+		}
+	}
+	return result;
+};
+
+console.log(flattenArray6([3, [[4]]]));
