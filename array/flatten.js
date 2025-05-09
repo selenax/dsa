@@ -3,14 +3,6 @@
 // console.log(flattenArray([1, [2], [3, [[4]]]])); //[ 1, 2, 3, 4 ]
 // console.log(flattenArray([[['a']], [['b']]])); //[ 'a', 'b' ]
 
-// //refactor
-// const flattenArray2 = (arr) => {
-// 	let flatten = [].concat(...arr);
-// 	// console.log(flatten);
-
-// 	return flatten.some(Array.isArray) ? flattenArray2(flatten) : flatten;
-// };
-
 // TIME:O(N+D) SPACE:O(N+D); D=depth of nesting
 const flattenArray = (arr) => {
 	//inital empty array to store result;
@@ -75,4 +67,19 @@ const flattenArray3 = (arr) => {
 	// elements were added in reverse order
 	return result.reverse();
 };
-console.log(flattenArray3([3, [[4]]]));
+
+// refactor
+const flattenArray4 = (arr) => {
+	let result = [];
+	// create copy to avoid mutation
+	let stack = [...arr];
+
+	while (stack.length) {
+		const current = stack.pop();
+		Array.isArray(current) ? stack.push(...current) : result.push(current);
+	}
+
+	// elements were added in reverse order
+	return result.reverse();
+};
+console.log(flattenArray4([3, [[4]]]));
