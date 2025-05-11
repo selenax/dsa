@@ -7,6 +7,8 @@
 //"Open sesame", "pen" -> false
 //"Connor", "n" -> false
 
+// TIME:O(k), k=substring of target length;
+// SPACE:O(1), temp string O(k) = constant overhead that doesn't scale w/ input size
 const confirmEnding = (str, target) => {
 	//get the length of target
 	const targetLen = target.length;
@@ -16,6 +18,8 @@ const confirmEnding = (str, target) => {
 	//if both matched, return true
 	return str.substring(str.length - targetLen) === target;
 };
+
+
 
 console.log(confirmEnding('Bastian', 'n'));
 console.log(confirmEnding('Open sesame', 'same'));
