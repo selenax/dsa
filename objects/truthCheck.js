@@ -7,7 +7,6 @@ const truthCheck = (collection, predicate) => {
 		const obj = collection[key];
 
 		// return false if object doesn't have 'predicate' key or it's value is falsy
-
 		if (!obj.hasOwnProperty(predicate)) {
 			return false;
 		} else if (!obj[predicate]) {
@@ -15,6 +14,12 @@ const truthCheck = (collection, predicate) => {
 		}
 	}
 	return true;
+};
+
+
+// ALGORITHM:  USING EVERY
+const truthCheck2 = (collection, predicate) => {
+	return collection.every((obj) => obj[predicate]);
 };
 
 console.log(
