@@ -17,5 +17,13 @@ function add(val) {
 	return val + 1;
 }
 
-console.log(myMap([1, 2, 3, 4], (num) => num + 1));
-console.log(myMap([1, 2, 3, 4], add));
+//ALGORITHM: RECURSION
+const myMap2 = (array, callback, i = 0, result = []) => {
+	if (i >= array.length) return result;
+
+	result.push(callback(array[i]));
+	return myMap(array, callback, i + 1, result);
+};
+
+console.log(myMap2([1, 2, 3, 4], (num) => num + 1));
+console.log(myMap2([1, 2, 3, 4], add));
