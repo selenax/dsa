@@ -17,7 +17,5 @@ function add(val) {
 	return val + 1;
 }
 
-console.log(myMap([1, 2, 3, 4]), (num) => {
-	num + 1;
-});
-// console.log(myMap([1, 2, 3, 4]), add);
+console.log(myMap([1, 2, 3, 4], (num) => num + 1));
+console.log(myMap([1, 2, 3, 4], add));
