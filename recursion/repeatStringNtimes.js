@@ -1,12 +1,15 @@
-// Repeat a given string (first argument) num times (second argument). Return an empty string if num is not a positive number.
+// Repeat a given string (first argument) num times (second argument). Return an null if num is not a positive number.
 
 function repeatStringNumTimes(str, num) {
+	// if 2nd arg is less than 0, return null
 	if (num < 0) {
-		return 'n/a';
+		return null;
 	}
+	// if stri len is 1, return stri
 	if (num === 1) {
 		return str;
 	} else {
+		// concat current string each recursion call
 		return str + repeatStringNumTimes(str, num - 1);
 	}
 }
