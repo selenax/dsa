@@ -29,3 +29,9 @@ Inventory.prototype.addItem = function (item, price) {
 		this[item].quantity++;
 	}
 };
+
+// check method 
+Inventory.prototype.checkItem = function (item) {
+	if (this[item]) return this[item];
+	else return 'Item is not in inventory';
+};
