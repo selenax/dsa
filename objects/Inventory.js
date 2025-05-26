@@ -9,3 +9,11 @@
 
 // The method checkItem should take a string as an argument and check to see whether that string exists as a property on the Inventory object. If so, return the object for that item. If not, return the string 'Item is not in inventory'.
 
+function Inventory(item, price) {
+    //store object that keep track of inventory with this
+    //item is stored as a variable key and is an object with 2 props
+        //1. price will be passed down as arg in methods
+        //2. quantity is initaize to 1
+    this[item] = {'price': price, 'quantity': 1}
+  }
+
