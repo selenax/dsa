@@ -30,7 +30,16 @@ Inventory.prototype.addItem = function (item, price) {
 	}
 };
 
-// check method 
+// delete method
+Inventory.prototype.deleteItem = function (item) {
+	if (this[item].quantity === 0) return 'Nothing to delete';
+	else {
+		this[item].quantity--;
+		return 'Deleted';
+	}
+};
+
+// check method
 Inventory.prototype.checkItem = function (item) {
 	if (this[item]) return this[item];
 	else return 'Item is not in inventory';
