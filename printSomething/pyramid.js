@@ -12,3 +12,25 @@
 //       '  #  '
 //       ' ### '
 //       '#####'
+
+//Bruteforce - TIME:O(N^2) SPACE:O(1)
+const pyramid = (n) => {
+	//n = # rows, median = # columns
+	//condition
+	//log # if median - row <= column && median + row >= column
+	//such that: 1 <= median >= 3
+	const median = Math.floor((n * 2 - 1) / 2);
+	for (let row = 0; row < n; row++) {
+		let stair = '';
+		for (let column = 0; column < n * 2 - 1; column++) {
+			if (median - row <= column && median + row >= column) {
+				stair += '#';
+			} else {
+				stair += ' ';
+			}
+		}
+		console.log(stair);
+	}
+};
+
+console.log(pyramid(3));
