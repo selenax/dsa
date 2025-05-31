@@ -41,7 +41,7 @@ const threeSum = function (nums) {
 
 		while (y < z) {
 			let sum = nums[x] + nums[y] + nums[z];
-			//if sum = target, we have a match, push to result
+			//if sum = 0, we have a match, push to result
 			if (sum === 0) {
 				result.push([nums[x], nums[y], nums[z]]);
 				//since no duplicates, we don't want y and z if they will be the same values
@@ -60,6 +60,6 @@ const threeSum = function (nums) {
 	return result;
 };
 
-console.log(threeSum([-2, 0, 1, 1, 2]));
-console.log(threeSum([-1, 0, 1, 2, -1, -4]));
-console.log(threeSum([1, -1, -1, 0]));
+console.log(threeSum([-2, 0, 1, 1, 2])); //[ [ -2, 0, 2 ], [ -2, 1, 1 ] ]
+console.log(threeSum([-1, 0, 1, 2, -1, -4])); //[ [ -1, -1, 2 ], [ -1, 0, 1 ] ]
+console.log(threeSum([1, -1, -1, 0])); //[ [ -1, 0, 1 ] ]
