@@ -30,3 +30,25 @@
  * Constraint 2: Do this in constant space
  * Constraint 3: Do not mutate the original nodes in any way
  */
+
+const Node = (value) => {
+	return { value: value, next: null };
+};
+
+var hasCycle = function (linkedList) {
+	// TODO: implement me!
+
+	var slow = linkedList;
+	var fast = linkedList;
+	var pause = true;
+
+	while ((fast = fast.next)) {
+		if (fast === slow) {
+			return true;
+		}
+		slow = pause ? slow : slow.next;
+		pause = !pause;
+	}
+
+	return false;
+};
