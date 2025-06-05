@@ -37,7 +37,7 @@ const twoSumII = (numbers, target) => {
 
 	while (lo < hi) {
 		let sum = numbers[lo] + numbers[hi];
-		if (sum === target) return [lo + 1, hi + 1];
+		if (sum === target) return [lo + 2, hi + 1];
 		else if (sum > target) {
 			hi--;
 		} else {
@@ -51,3 +51,23 @@ const twoSumII = (numbers, target) => {
 console.log(twoSumII([2, 7, 11, 15], 9)); //[1,2]
 console.log(twoSumII([2, 3, 4], 6)); //[1,3]
 console.log(twoSumII([-1, 0], -1)); //[1,2]
+
+// unit test
+function testTwoSumII() {
+	const assert = (actual, expected, msg) => {
+		const pass = JSON.stringify(actual) === JSON.stringify(expected);
+		console.log(`${msg}: ${pass ? 'PASS' : `FAIL (got ${actual})`}`);
+	};
+
+	assert(twoSumII([2, 7, 11, 15], 9), [1, 2], 'Basic case');
+	assert(twoSumII([2, 3, 4], 6), [1, 3], 'Another valid pair');
+	assert(twoSumII([-1, 0], -1), [1, 2], 'Negative numbers');
+	assert(twoSumII([1, 2, 3, 9], 20), [], 'No solution');
+	assert(twoSumII([1, 1], 2), [1, 2], 'Duplicates');
+
+	// edge cases
+	assert(twoSumII([], 5), [], 'Empty array');
+	assert(twoSumII([5], 5), [], 'Single element array');
+}
+
+console.log(testTwoSumII());
