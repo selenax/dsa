@@ -21,26 +21,33 @@
 // Explanation: The sum of -1 and 0 is -1. Therefore index1 = 1, index2 = 2. We return [1, 2].
 
 //ALGORITHM: TIME:O(N) SPACE:O(1)
-var twoSum = function(numbers, target) {
-    //use 2 indices, initially pointing at the first and last element
-    //compare their sum to target, if sum = target, we found solution
-      //if sum > target, decrease the larger index by 1 
-      //if sum < target, increase the smaller index by 1 
-      //move the dices and repeat the comparison until solution is found. 
-    //[abcdef] //[ce]
-         //because we are moving the small index from left to right, and large index from right to left, 
-         //at one point or another, one of the pointers will get to c or e first. 
-         //let's say the small index reaches c first. generally speaking the sum of these 2 elements will be bigger than our target. And based on our algorithm, we will move the larger index to the left until we reach the solution. 
+const twoSumII = (numbers, target) => {
+	//use 2 indices, initially pointing at the first and last element
+	//compare their sum to target, if sum = target, we found solution
+	//if sum > target, decrease the larger index by 1
+	//if sum < target, increase the smaller index by 1
+	//move the dices and repeat the comparison until solution is found.
+	//[abcdef] //[ce]
+	//because we are moving the small index from left to right, and large index from right to left,
+	//at one point or another, one of the pointers will get to c or e first.
+	//let's say the small index reaches c first. generally speaking the sum of these 2 elements will be bigger than our target. And based on our algorithm, we will move the larger index to the left until we reach the solution.
 
-         let lo = 0, hi = numbers.length-1;
+	let lo = 0,
+		hi = numbers.length - 1;
 
-         while(lo < hi) {
-            let sum = numbers[lo] + numbers[hi];
-            if(sum === target ) return [lo+1, hi+1]
-            else if(sum > target) {
-                hi--;
-            } else {
-                lo++
-            }
-         }
+	while (lo < hi) {
+		let sum = numbers[lo] + numbers[hi];
+		if (sum === target) return [lo + 1, hi + 1];
+		else if (sum > target) {
+			hi--;
+		} else {
+			lo++;
+		}
+	}
+	// edge case when no solution's found
+	return [];
 };
+
+console.log(twoSumII([2, 7, 11, 15], 9)); //[1,2]
+console.log(twoSumII([2, 3, 4], 6)); //[1,3]
+console.log(twoSumII([-1, 0], -1)); //[1,2]
