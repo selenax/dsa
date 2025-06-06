@@ -41,5 +41,12 @@ const reverseStr2 = (str) => {
 	//return newStr
 };
 
-console.log(reverseStr2('abcd')); //dcba
-console.log(reverseStr2('abc')); //cba
+// ALGORITHM 3: Reduce
+// TIME:O(N^2) - string concatenation is O(N) inside reduce loop O(N)
+// SPACE:O(N)
+const reverseStr3 = (str) => {
+	return str.split('').reduce((accum, curr) => curr + accum, '');
+};
+
+console.log(reverseStr3('abcd')); //dcba
+console.log(reverseStr3('abc')); //cba
