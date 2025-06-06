@@ -1,6 +1,7 @@
 // reverse string
 
-// ALGORITHM 1: Two Pointer
+// ALGORITHM 1: Two Pointers
+// TIME:O(N) SPACE:O(N)
 const reverseStr = (str) => {
 	// split str into array
 	// initialize left and right pointer at 0 and last index
@@ -23,4 +24,22 @@ const reverseStr = (str) => {
 	return arr.join('');
 };
 
-console.log(reverseStr('abcd')); //dcba
+// AlGORITHM 2: Stack
+// TIME:O(N) SPACE:O(N)
+const reverseStr2 = (str) => {
+	// split string into array
+	let stack = str.split('');
+
+	// create newStr to accum char
+	// while loop runs til stack has no more length
+	// pop last char from stack, add to newStr
+	let newStr = '';
+	while (stack.length) {
+		newStr += stack.pop();
+	}
+	return newStr;
+	//return newStr
+};
+
+console.log(reverseStr2('abcd')); //dcba
+console.log(reverseStr2('abc')); //cba
