@@ -13,8 +13,8 @@ const reverseStr = (str) => {
 		right = arr.length - 1;
 
 	while (left < right) {
+		// swap by destructure assignment
 		[arr[left], arr[right]] = [arr[right], arr[left]];
-		console.log(arr);
 
 		left++;
 		right--;
