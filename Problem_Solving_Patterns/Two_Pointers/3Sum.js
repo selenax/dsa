@@ -23,6 +23,8 @@
 // Output: [[0,0,0]]
 // Explanation: The only possible triplet sums up to 0.
 
+//ALGORITHM: 2 Pointers
+//TIME:O(N^2) SPACE:O(1)
 const threeSum = function (nums) {
 	let result = [];
 	nums.sort((a, b) => a - b);
