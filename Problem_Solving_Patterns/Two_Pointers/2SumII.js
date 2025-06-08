@@ -20,7 +20,8 @@
 // Output: [1,2]
 // Explanation: The sum of -1 and 0 is -1. Therefore index1 = 1, index2 = 2. We return [1, 2].
 
-//ALGORITHM: TIME:O(N) SPACE:O(1)
+//ALGORITHM: 2 Pointers
+// TIME:O(N) SPACE:O(1)
 const twoSumII = (numbers, target) => {
 	//use 2 indices, initially pointing at the first and last element
 	//compare their sum to target, if sum = target, we found solution
