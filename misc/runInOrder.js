@@ -18,16 +18,24 @@
 // runInOrder([sayHi, sayBye, sayHowdy], [300, 600, 200]);
 // /* should log: 'hi' (after 300 ms) 'bye' (600 ms after 'hi') 'howdy' (200 ms after 'bye') */
 
-// arrNums - array of numbers in milliseconds
-
+// if pass in each val in arrNums to setTimeout
+// task queue: 300,600,200 ->
+// 1. 200ms timer will run out first, moves to call stack and execute- log: 'howdy'
+// 2. 100ms later, the 300ms timer will move to stack, execute- log 'hi'
+// 3. 300ms later, the 600ms timer will log 'bye'
+// THAT IS NOT what we want. To log it according to prompt, we have to factor in that these timers will start counting down approx same time.
 const runInOrder = (arrFuns, arrNums) => {
-	let time = 0;
-	for (let i = 0; i < arrFuns.length; i++) {
-		time += arrNums[i];
-		setTimeout(arrFuns[i], time);
+	//Timer gets added to task queue synchronously and will all start couting down approx same time;
+	//To accommodate previous timer, just add it to current time
+	//step 1: 300
+	//step 2: 300+600
+	//step 3: 300+600+200
+
+	let timer = 0;
+	for (let i of arrFuns) {
+		setTimeout(i, (timer += arrNums[i]));
 	}
 };
-
 function sayHi() {
 	console.log('hi');
 }
