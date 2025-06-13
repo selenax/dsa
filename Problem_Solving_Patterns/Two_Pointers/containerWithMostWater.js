@@ -19,21 +19,21 @@
 // given an array of elements that rep the height (y-axis) at each index (x-axis)
 // find 2 lines on x-axis to form container that will hold most water
 // area = w*l
-
+// TIME:O(N) SPACE:O(1)
 const maxArea = (height) => {
 	let max = 0;
 	let left = 0;
 	let right = height.length - 1;
 
 	while (left < right) {
-		const width = right - left; // base of container
+		const width = right - left; // base of container - index difference
 
-        // choosing the shorter height to make sure it won't slant
-		const area = Math.min(height[left], height[right]) * width; 
+		// choosing the shorter height to make sure it won't slant
+		const area = Math.min(height[left], height[right]) * width;
 
 		max = Math.max(max, area);
 
-		// move the pointer at the shorter line inward
+		// move the pointer at the shorter line inward to find taller one
 		if (height[left] < height[right]) {
 			left++;
 		} else {
