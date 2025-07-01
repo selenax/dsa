@@ -37,6 +37,9 @@
 		2. if sum < target, incrememt y
 		3. if sum > target, decrement z 
 	5. also check x for duplicates to avoid same anchor
+
+	Edge case: 
+	1. if array has fewer than 3 elements return early w/ []
 */
 
 const threeSum = (nums) => {};
