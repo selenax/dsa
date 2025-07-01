@@ -23,45 +23,20 @@
 // Output: [[0,0,0]]
 // Explanation: The only possible triplet sums up to 0.
 
-//ALGORITHM: 2 Pointers
-//TIME:O(N^2) SPACE:O(1)
-const threeSum = function (nums) {
-	let result = [];
-	nums.sort((a, b) => a - b);
+// ALGORITHM: 3 POINTER APPROACH BY SORT + 2 POINTER
+// input: number[]
+// output: number[][] - each inner array is a unique triplet summing to 0;
 
-	if (nums.length < 3) return result;
+/* use 3 pointers approach - (x,y,z) - anchor x, and move y and z around to find target
 
-	// x will be anchored at each iteration as y and z moves around to check for target sum
-	for (let x = 0; x < nums.length - 2; x++) {
-		//skip duplicates
-		if (x > 0 && nums[x] === nums[x - 1]) continue;
+	1. sort array to both help handle duplicate and use 2 pointer technique 
+	2. anchor x starting index 0
+	3. for each x, initalize two pointers: y at x + 1, z at the end of the array
+	4. as y and z move toward each other, we check sum: arr[x] + arr[y] + arr[z]
+		1. if sum = target, add these triplets to result and check for y & z duplicates as this combination is no longer unique  
+		2. if sum < target, incrememt y
+		3. if sum > target, decrement z 
+	5. also check x for duplicates to avoid same anchor
+*/
 
-		let y = x + 1;
-		let z = nums.length - 1;
-		let target = 0;
-
-		while (y < z) {
-			let sum = nums[x] + nums[y] + nums[z];
-
-			//if sum = target, we have a match, push to result
-			if (sum === target) {
-				result.push([nums[x], nums[y], nums[z]]);
-
-				while (nums[y] === nums[y + 1]) y++; //skip duplicates
-				while (nums[z] === nums[z - 1]) z--;
-				//increment and decrement y and z to check for next sum
-				y++;
-				z--;
-			} else if (sum < target) {
-				y++; //get the next bigger value for y to make sum bigger
-			} else {
-				z--; //get the next smaller value for z to make sum smaller
-			}
-		}
-	}
-	return result;
-};
-
-console.log(threeSum([-1, 0, 1, 2, -1, -4])); //[[-1,-1,2],[-1,0,1]]
-console.log(threeSum([0, 1, 1])); //[]
-console.log(threeSum([0, 0, 0])); //[[0,0,0]]
+const threeSum = (nums) => {};
