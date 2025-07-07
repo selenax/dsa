@@ -21,6 +21,8 @@
 5. sort after each insert to maintain min-heap behavoior
 */
 
+//ALGORITHM: Simulated min-heap w/ sorted array
+//TIME:O(N^2) SPACE:O(N)
 const minMeetingRooms = (intervals) => {
 	// sort array by starting time
 	intervals.sort((a, b) => a[0] - b[0]);
