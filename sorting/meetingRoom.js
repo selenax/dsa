@@ -13,6 +13,11 @@
 // Explanation:
 // Meetings [1,4] and [2,5] overlap with each other.
 
+// EXTENSION PROBLEM
+// return overlapping meetings
+// return max # of concurrent meetings
+// merge overlapping meetings
+
 /*
 input: [][] of integers 
 output: boolean
@@ -25,7 +30,7 @@ edge case:
 - 1 or less meeting is listed => no overlap, return true
 */
 
-//TIME:O(n log n); 
+//TIME:O(n log n);
 //SPACE:O(1) if sorting in place; but O(n) here since I chose to avoid mutation
 const canAttendMeetings = (intervals) => {
 	if (intervals.length <= 1) return true; //edge case: 0 or 1 meeting
