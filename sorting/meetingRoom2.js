@@ -96,6 +96,19 @@ console.log(
 	])
 ); //3
 
+
+// ALGORITHM: min-heap 
+// TIME:O(n log n)
+
+const minMeetingRoom3 = intervals => {
+
+}
+
+class minHeap {
+	
+}
+
+
 // console.log(
 // 	minMeetingRooms([
 // 		[0, 30],
