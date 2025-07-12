@@ -21,6 +21,8 @@
 5. sort after each insert to maintain min-heap behavoior
 */
 
+// 2 approaches to solve this problem: min-heap and sweep line algorithm
+
 //ALGORITHM: Simulated min-heap w/ sorted array
 //TIME:O(N^2) SPACE:O(N)
 const minMeetingRooms = (intervals) => {
@@ -46,28 +48,76 @@ const minMeetingRooms = (intervals) => {
 	return endTime.length;
 };
 
+//ALGORITHM: sweep line - O(n log n)
+const minMeetingRooms2 = (intervals) => {
+	// assign each start time w/ start, and visa versa with end
+	// sort all events by start and end time
+	// if start and end is same, sort end first
+	// initalize counter, increase by 1 if start or decrease by 1 if end
+	// record max count at each iteration as that's the # of overlapping intervals
+	// return max count
+
+	let events = [];
+	for (let [start, end] of intervals) {
+		events.push([start, 'start']);
+		events.push([end, 'end']);
+	}
+
+	events.sort((a, b) => {
+		// start and end are same
+		if (a[0] === b[0]) {
+			// sort end before start
+			return a[1] === 'end' ? -1 : 1;
+		}
+		return a[0] - b[0];
+	});
+	let count = 0;
+	maxCount = 0;
+	for (let [time, type] of events) {
+		if (type === 'start') count++;
+		else count--;
+		maxCount = Math.max(count, maxCount);
+	}
+	return maxCount;
+};
+
 console.log(
-	minMeetingRooms([
+	minMeetingRooms2([
 		[0, 30],
 		[5, 10],
 		[15, 20],
 	])
-); //2
-
+);
 console.log(
-	minMeetingRooms([
+	minMeetingRooms2([
 		[0, 10],
 		[2, 20],
 		[6, 16],
 	])
 ); //3
 
-console.log(
-	minMeetingRooms([
-		[7, 10],
-		[2, 4],
-	])
-); //1
+// console.log(
+// 	minMeetingRooms([
+// 		[0, 30],
+// 		[5, 10],
+// 		[15, 20],
+// 	])
+// ); //2
+
+// console.log(
+// 	minMeetingRooms([
+// 		[0, 10],
+// 		[2, 20],
+// 		[6, 16],
+// 	])
+// ); //3
+
+// console.log(
+// 	minMeetingRooms([
+// 		[7, 10],
+// 		[2, 4],
+// 	])
+// ); //1
 // console.log(minMeetingRooms([[5,10],[15,20],[5,30]]));
 // console.log(minMeetingRooms([[2,11],[6,16],[11,16]]));
 // console.log(minMeetingRooms([[2,11],[6,16],[10,16],[2,20]]));
