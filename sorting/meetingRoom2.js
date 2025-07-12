@@ -21,11 +21,46 @@
 5. sort after each insert to maintain min-heap behavoior
 */
 
-// 2 approaches to solve this problem: min-heap and sweep line algorithm
+// 2 approaches to solve this problem: sweep line algorithm and Min-Heap
 
-//ALGORITHM: Simulated min-heap w/ sorted array
-//TIME:O(N^2) SPACE:O(N)
+//ALGORITHM:1 sweep line - O(n log n)
 const minMeetingRooms = (intervals) => {
+	// assign each start time w/ start, and visa versa with end
+	// sort all events by start and end time
+	// if start and end is same, sort end first
+	// initalize counter, increase by 1 if start or decrease by 1 if end
+	// record max count at each iteration as that's the # of overlapping intervals
+	// return max count
+
+	let events = [];
+	for (let [start, end] of intervals) {
+		events.push([start, 'start']);
+		events.push([end, 'end']);
+	}
+
+	events.sort((a, b) => {
+		// start and end are same
+		if (a[0] === b[0]) {
+			// sort end before start
+			return a[1] === 'end' ? -1 : 1;
+		}
+		return a[0] - b[0];
+	});
+
+	let count = 0;
+	maxCount = 0;
+	for (let [time, type] of events) {
+		if (type === 'start') count++;
+		else count--;
+		maxCount = Math.max(count, maxCount);
+	}
+
+	return maxCount;
+};
+
+//ALGORITHM:2 Simulated min-heap w/ sorted array
+//TIME:O(N^2) SPACE:O(N)
+const minMeetingRooms2 = (intervals) => {
 	// sort array by starting time
 	intervals.sort((a, b) => a[0] - b[0]);
 
@@ -48,82 +83,112 @@ const minMeetingRooms = (intervals) => {
 	return endTime.length;
 };
 
-//ALGORITHM: sweep line - O(n log n)
-const minMeetingRooms2 = (intervals) => {
-	// assign each start time w/ start, and visa versa with end
-	// sort all events by start and end time
-	// if start and end is same, sort end first
-	// initalize counter, increase by 1 if start or decrease by 1 if end
-	// record max count at each iteration as that's the # of overlapping intervals
-	// return max count
+// ALGORITHM:3 min-heap
+// TIME:O(n log n) SPACE:O(N)
+const minMeetingRooms3 = (intervals) => {
+	const heap = new MinHeap();
 
-	let events = [];
-	for (let [start, end] of intervals) {
-		events.push([start, 'start']);
-		events.push([end, 'end']);
-	}
+	let sorted = [...intervals].sort((a, b) => a[0] - b[0]);
 
-	events.sort((a, b) => {
-		// start and end are same
-		if (a[0] === b[0]) {
-			// sort end before start
-			return a[1] === 'end' ? -1 : 1;
+	for (let [start, end] of sorted) {
+		// if heap isn't empty and the shortest meeting is smaller or equal to the next start time, reuse room
+		if (heap.size() && heap.peek() <= start) {
+			heap.pop();
 		}
-		return a[0] - b[0];
-	});
-	let count = 0;
-	maxCount = 0;
-	for (let [time, type] of events) {
-		if (type === 'start') count++;
-		else count--;
-		maxCount = Math.max(count, maxCount);
+		heap.push(end);
 	}
-	return maxCount;
+	return heap.size();
 };
 
+class MinHeap {
+	constructor() {
+		this.data = []; // initialize empty array to store heap
+	}
+
+	peek() {
+		return this.data[0]; // return smallest value
+	}
+
+	size() {
+		return this.data.length;
+	}
+
+	push(val) {
+		this.data.push(val);
+		// ensures heap remains valid after adding val
+		this.heapifyUp();
+	}
+
+	// after insertion, this checks to see if the value is in the correct position
+	// by compare and swap with the parent as needed by bubbling up
+	heapifyUp() {
+		let i = this.data.length - 1; //last index
+		while (i > 0) {
+			// stop at root, since root doesn't have parent
+			let parent = Math.floor((i - 1) / 2); // compute parent's binary heap formula
+
+			if (this.data[i] > this.data[parent]) break; //child is bigger than parent, order is in place;
+
+			//else child is <= than parent, switch
+			[this.data[i], this.data[parent]] = [this.data[parent], this.data[i]];
+			i = parent; //continue bubbling up
+		}
+	}
+
+	// 1. removes and return smallest element
+	// 2. refill that hole with last element (since binary tree is fully filled every level, hence must use the last node),
+	// 3. then restore min-heap order
+	pop() {
+		if (this.data.length === 1) return this.data.pop(); // base case
+
+		const top = this.data[0];
+		this.data[0] = this.data.pop();
+		this.heapifyDown(); //bubbling down to the correct position
+		return top;
+	}
+
+	// after inserting last index to the top, find its correct position by bubbling down
+	// by compare and swap with its children
+	heapifyDown() {
+		let i = 0;
+		const length = this.data.length;
+
+		while (true) {
+			const left = 2 * i + 1;
+			const right = 2 * i + 2;
+			let smallest = i;
+
+			// compare w/left & right child
+			// if left/right is not out of bound(ie last level) & it's smaller, swap
+			if (left < length && this.data[left] < this.data[smallest])
+				smallest = left;
+			if (right < length && this.data[right] < this.data[smallest])
+				smallest = right;
+
+			if (smallest === i) break; // curr node is already smallest, heap satisfied, no swap
+
+			[this.data[i], this.data[smallest]] = [this.data[smallest], this.data[i]];
+
+			i = smallest;
+		}
+	}
+}
+
 console.log(
-	minMeetingRooms2([
+	minMeetingRooms3([
 		[0, 30],
 		[5, 10],
 		[15, 20],
 	])
-);
+); //2
+
 console.log(
-	minMeetingRooms2([
+	minMeetingRooms3([
 		[0, 10],
 		[2, 20],
 		[6, 16],
 	])
 ); //3
-
-
-// ALGORITHM: min-heap 
-// TIME:O(n log n)
-
-const minMeetingRoom3 = intervals => {
-
-}
-
-class minHeap {
-	
-}
-
-
-// console.log(
-// 	minMeetingRooms([
-// 		[0, 30],
-// 		[5, 10],
-// 		[15, 20],
-// 	])
-// ); //2
-
-// console.log(
-// 	minMeetingRooms([
-// 		[0, 10],
-// 		[2, 20],
-// 		[6, 16],
-// 	])
-// ); //3
 
 // console.log(
 // 	minMeetingRooms([
