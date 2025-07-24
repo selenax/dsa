@@ -15,35 +15,47 @@
 // Example 2:
 // Input: height = [1,1]
 // Output: 1
+//-------------------------//
 
-// given an array of elements that rep the height (y-axis) at each index (x-axis)
-// find 2 lines on x-axis to form container that will hold most water
-// area = w*l
-// TIME:O(N) SPACE:O(1)
-// const maxArea = (height) => {
-// 	let max = 0;
-// 	let left = 0;
-// 	let right = height.length - 1;
+/*
+- input: [] = integers representing height
+- goal: find max area of water a container can hold using 2 lines 
+    - width is distance between 2 indices (right - left)
+    - length is shorter of the 2 lines to avoid slant
+- edge case:
+    1. [] return 0
+- output: integer
 
-// 	while (left < right) {
-// 		const width = right - left; // base of container - index difference
+Algorithm: 2 Pointer
+Time: O(N)
+Space: O(1)
+ */
 
-// 		// choosing the shorter height to make sure it won't slant
-// 		const area = Math.min(height[left], height[right]) * width;
+const maxArea = (height) => {
+  // use 2 pointers: left and right to represent a container
+  // move left towards right if left < right b/c we want find the next taller height, vice versa
+  // record max area using l * w,
+  // length: use smaller value for 2 height due to slant constraint
+  // width: difference between left and right indices; right - left
+  if (height.length === 0) return 0;
+  let left = 0;
+  let right = height.length - 1;
+  let max = 0;
 
-// 		max = Math.max(max, area);
+  while (left < right) {
+    const width = right - left;
+    const area = Math.min(height[left], height[right]) * width;
 
-// 		// move the pointer at the shorter line inward to find taller one
-// 		if (height[left] < height[right]) {
-// 			left++;
-// 		} else {
-// 			right--;
-// 		}
-// 	}
+    max = Math.max(area, max);
 
-// 	return max;
-// };
+    if (height[left] < height[right]) {
+      left++;
+    } else {
+      right--;
+    }
+  }
+  return max;
+};
 
-const maxAre = (height) => {};
 console.log(maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7])); // 49
 console.log(maxArea([1, 1])); // 1
