@@ -44,42 +44,36 @@ Each student received 1 signature.
 
 */
 
-// function findSignatureCounts(arr) {
-//   const n = arr.length;
-//   const res = Array(n).fill(0); // Final result array
-//   const visited = Array(n).fill(false); // Tracks whether we've already processed a student
+function findSignatureCounts(arr) {
+  const n = arr.length;
+  const res = Array(n).fill(0); // Final result array
+  const visited = Array(n).fill(false); // Tracks whether we've already processed a student
 
-//   for (let i = 0; i < n; i++) {
-//     if (!visited[i]) {
-//       let currStudent = i;
-//       const cycle = []; // Stores all students in the current cycle
+  for (let i = 0; i < n; i++) {
+    if (!visited[i]) {
+      let currStudent = i;
+      const cycle = []; // Stores all students in the current cycle
 
-//       // Traverse the cycle starting from student i
-//       while (!visited[currStudent]) {
-//         // = !false
-//         console.log(`if currStudent ${currStudent} is false, set it to true, then add to cycle`);
-//         // console.log(`i=${i}`);
+      // Traverse the cycle starting from student i
+      while (!visited[currStudent]) {
+        // = !false
+        visited[currStudent] = true;
 
-//         visited[currStudent] = true;
+        cycle.push(currStudent);
 
-//         cycle.push(currStudent);
+        currStudent = arr[currStudent] - 1; // calculate where the YB will be passed to next
+      }
 
-//         currStudent = arr[currStudent] - 1; // calculate where the YB will be passed to next
+      // Everyone in the same cycle gets the same count (cycle length)
 
-//       }
-
-//       // Everyone in the same cycle gets the same count (cycle length)
-
-//       const count = cycle.length;
-//       for (let val of cycle) {
-
-//         res[val] = count;
-
-//       }
-//     }
-//   }
-//   return res;
-// }
+      const count = cycle.length;
+      for (let val of cycle) {
+        res[val] = count;
+      }
+    }
+  }
+  return res;
+}
 
 function findSignatureCounts(arr) {
   const n = arr.length;
