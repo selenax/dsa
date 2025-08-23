@@ -12,9 +12,26 @@ Approaches:
     ✅ Pros: easy to reason
     ❌ Cons: too slow for large n 
 
-2. Two-pointer Sweep - O(n log n)
+2. Better Approach: Min Heap - O(n log n)
     - steps: 
-      1. Extract starts and ends, sort separately
+        1. Sort intervals by start time.
+        2. Create a min-heap for meeting end times
+        3. For each interval:
+            - While heap.top <= current start, pop (free room)
+            - Push current meeting’s end into heap
+            - Track max heap size
+        4. Return max heap size
+    ✅ Pros:
+      - Works for production (can assign rooms).
+      - Handles dynamic inputs (meetings coming in real-time)
+    ❌ Cons:
+      - Require defining heap class 
+      - slightly higher overhead than sweep-line 
+
+
+3. Optimal Approach: Two-pointer Sweep - O(n log n)
+    - steps: 
+        1. Extract starts and ends, sort separately
         2. Walk both arrays with pointers
         3. Increment rooms if start < end, else decrement
         4. Track max rooms
@@ -25,21 +42,6 @@ Approaches:
       - only gives room count, not actual room mapping
       - less flexible if problem requirements change 
 
-3. Min Heap - O(n log n)
-    - steps: 
-      1. Sort intervals by start time.
-      2. Create a min-heap for meeting end times.
-      3. For each interval:
-          - While heap.top <= current start, pop (free room).
-          - Push current meeting’s end into heap.
-          - Track max heap size.
-      4. Return max heap size.
-    ✅ Pros:
-      - Works for production (can assign rooms).
-      - Handles dynamic inputs (meetings coming in real-time).
-    ❌ Cons:
-      - Require defining heap class 
-      - slightly higher overhead than sweep-line 
 
 Notes:
 - If start == end, room can be reused
@@ -47,42 +49,42 @@ Notes:
 - For production: Heap = more realistic for scheduling
 */
 
+/*
+Approach 1: Two-pointer sweep-line (vertical line sweeps across (sorted)time; ie schedules)
+Time: O(n log n) (for sorting starts & ends)
+Space: O(n) (two arrays of start/end times)
+*/
+const minMeetingRooms_sweepline = (intervals) => {
+  if (!intervals || intervals.length === 0) return 0;
 
+  // Step 1: Extract all start times and end times
+  const starts = intervals.map(([s]) => s).sort((a, b) => a - b);
+  const ends = intervals.map(([, e]) => e).sort((a, b) => a - b);
 
-// // ALGORITHM 1: sweep line - O(n log n)
-// const minMeetingRooms = (intervals) => {
-//   // assign each start time w/ start, and visa versa with end
-//   // sort all events by start and end time
-//   // if start and end is same, sort end first
-//   // initalize counter, increase by 1 if start or decrease by 1 if end
-//   // record max count at each iteration as that's the # of overlapping intervals
-//   // return max count
+  // Step 2: Initialize pointers and counters
+  let i = 0; // pointer for starts
+  let j = 0; // pointer for ends
+  let rooms = 0;
+  let maxRooms = 0;
 
-//   let events = [];
-//   for (let [start, end] of intervals) {
-//     events.push([start, 'start']);
-//     events.push([end, 'end']);
-//   }
+  // Step 3: Process all start times
+  while (i < starts.length) {
+    if (starts[i] < ends[j]) {
+      // Case A: New meeting starts before earliest end -> need new room
+      rooms++;
+      i++;
+    } else {
+      // Case B: A meeting ended -> free a room
+      rooms--;
+      j++;
+    }
+    // Step 4: Track maximum concurrent rooms
+    maxRooms = Math.max(maxRooms, rooms);
+  }
+  // Step 5: Return result
+  return maxRooms;
+};
 
-//   events.sort((a, b) => {
-//     // start and end are same
-//     if (a[0] === b[0]) {
-//       // sort end before start
-//       return a[1] === 'end' ? -1 : 1;
-//     }
-//     return a[0] - b[0];
-//   });
-
-//   let count = 0;
-//   maxCount = 0;
-//   for (let [time, type] of events) {
-//     if (type === 'start') count++;
-//     else count--;
-//     maxCount = Math.max(count, maxCount);
-//   }
-
-//   return maxCount;
-// };
 
 //ALGORITHM 2: sorted array (simulate min-heap logic)
 //TIME:loop n times, each iteration does a shift O(n) and a sort O(n log n). Summing to O(n^2) + O(n^2 log n).
