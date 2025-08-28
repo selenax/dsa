@@ -14,8 +14,13 @@ Approaches:
 	✅ Pros: easy to reason
     ❌ Cons: too slow for large n 
 
-2. Best Approach: Hash map - O(n)
-
+2. Best Approach: Sliding window & hash map - O(n)
+	- steps: Use two pointers (start and i) to form a sliding window. 
+				Track each character’s last seen index in a hash map. 
+				If a duplicate is found inside the window, move start to one past 
+				the previous occurrence. Update max length at each step.
+	 ✅ Pros: Efficient run time
+	 ❌ Cons: less intuitive than brute force
 */
 
 /* 
@@ -45,29 +50,43 @@ const lengthOfLongestSubstring_bruteforce = (s) => {
   return maxLen;
 };
 
-// TIME:O(N) SPACE:O(1)
-const lengthOfLongestSubstring = (str) => {
-  let hash = {};
-  let max = 0;
-  let start = 0;
+/*
+Approach 2: Sliding window x hash map 
+Time: O(n)
+Space:
+- O(min(n, k)), where n = string length, k = alphabet size.
+- If alphabet is fixed (e.g., ASCII = 128 chars), space = O(1).
+- If alphabet is unbounded (e.g., full Unicode), space = O(n).
+*/
+
+const lengthOfLongestSubstring_hashMap = (str) => {
+  // 1. Initialize:
+  //    - start = 0, left boundary of current substring window
+  //    - max = 0, track longest length so far
+  //    - hash = {},  track the last seen index of each character
+  // 2. Iterate over string with index i:
+  //    - If str[i] is in hash AND hash[str[i]] >= start:
+  //        - Duplicate inside window → shift start to hash[str[i]] + 1
+  //    - Update hash[str[i]] = i
+  //    - Update max = Math.max(max, i - start + 1)
+  // 3. Return max
+  let hash = {},
+    max = 0,
+    start = 0;
 
   for (let i = 0; i < str.length; i++) {
-    //assign current char as key, index as value
-    let currChar = str[i];
-
-    // need to account for when duplicate is at index 0, falsy value so can't use if curr >=0
-    if (hash[currChar] >= start) {
-      // if duplicate char, start again from last index of the char + 1
-      start = hash[currChar] + 1;
+    // duplicate is found within the current window
+    if (hash[str[i]] !== undefined && hash[str[i]] >= start) {
+      // start a new substr at the next index where this duplicated char appeared
+      start = hash[str[i]] + 1;
     }
-    //if not in hash, add and assign index as value
-    hash[currChar] = i;
-    max = Math.max(max, i - start + 1);
+    hash[str[i]] = i; // update char to last index seen
+    max = Math.max(i - start + 1, max); // update new max with current length or previous max
   }
   return max;
 };
 
-// console.log(lengthOfLongestSubstring('ddwfed')); //4
-// console.log(lengthOfLongestSubstring('abccd')); //3
-// console.log(lengthOfLongestSubstring('pwwkew')); //3
-// console.log(lengthOfLongestSubstring('bbb')); //1
+console.log(lengthOfLongestSubstring_hashMap('ddwfed')); //4
+console.log(lengthOfLongestSubstring_hashMap('abccd')); //3
+console.log(lengthOfLongestSubstring_hashMap('pwwkew')); //3
+console.log(lengthOfLongestSubstring_hashMap('bbb')); //1
