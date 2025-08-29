@@ -10,7 +10,31 @@ Example 2: Input: s = "AABABBA", k = 1; Output: 4; Explanation: Replace the one 
 The substring "BBBB" has the longest repeating letters, which is 4. There may exists other ways to achieve this answer too.
 
 Approaches:
-1. Brute Force - 
-
+1. Brute Force - O(n^2)
+    steps: 
 
 */
+
+const characterReplacement_bruteforce = (s, k) => {
+  // 1) For each start i, clear freq and maxFreq = 0
+  // 2) Extend j from i to end:
+  //    - Increment freq of s[j]
+  //    - Update maxFreq if needed
+  //    - If windowLen - maxFreq <= k, update maxLen
+  let maxLen = 0;
+
+  for (let i = 0; i < s.length; i++) {
+    const freq = {}; // char -> count
+    let maxFreq = 0;
+
+    for (let j = i; j < s.length; j++) {
+      const char = s[j];
+      freq[char] = (freq[char] || 0) + 1;
+      if (freq[char] > maxFreq) maxFreq = freq[char];
+
+      const len = j - i + 1;
+      if (len - maxFreq <= k) maxLen = Math.max(maxLen, len);
+    }
+  }
+  return maxLen;
+};
