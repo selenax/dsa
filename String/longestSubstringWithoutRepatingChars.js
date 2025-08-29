@@ -16,9 +16,9 @@ Approaches:
 
 2. Best Approach: Sliding window & hash map - O(n)
 	- steps: Use two pointers (start and i) to form a sliding window. 
-				Track each character’s last seen index in a hash map. 
-				If a duplicate is found inside the window, move start to one past 
-				the previous occurrence. Update max length at each step.
+				Track each character’s last seen index in a hash map 
+				b/c once dup is found inside the window, shift start to one past previous occurence. 
+				Update char with last seen index and max length at each step.
 	 ✅ Pros: Efficient run time
 	 ❌ Cons: less intuitive than brute force
 */
@@ -29,13 +29,14 @@ Time: O(n^2) - i x j
 Space: O(n) - set grows with substring
 */
 const lengthOfLongestSubstring_bruteforce = (s) => {
-  // 1. initialize variable maxLen = 0, currStr = ''
-  // 2. outer loop i as starting point
-  // 3. inner loop j as end point
-  // 4. extract substring s[i:j]
-  // 4. check if substring has all unique character
-  // 	- if yes, track/update maxLen
-  // 5. return maxLen
+  // 1. initialize:
+  //     - max = 0
+  //     - charSet = new Set(), track unique substring
+  // 2. i in outter loop as starting point, j in inner loop as end point
+  // 3. extract substring s[i:j]
+  // 4. break if char found in set
+  //     - else, add to set and track max len
+  // 5. return len
 
   let maxLen = 0;
 
