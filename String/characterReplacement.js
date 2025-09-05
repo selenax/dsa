@@ -24,28 +24,23 @@ Key idea: Track the frequency of characters in the current substring as well as 
 
 Approaches:
 1. Brute Force - O(n^2)
-   - Use index i as the start of each substring
-   - Move index j forward, update frequency of chars and track the highest frequency
-   - Compute replacements = (substring length – highest frequency)
-   - If replacements ≤ k, the substring is valid → record max length
-   - If replacements > k, break (replacements doesn't decrease as j grows)
+  - steps: Check every substring starting at each index, use a frequency map to track the highest character count, and record the length if the replacements needed (len – maxFreq) are within k
 
-2. Sliding Window (O(n)):
-  1. Use two pointers l, r and a frequency map.
-  2. Expand r each step, increment freq[s[r]], update maxFreq.
-  3. If (window length – maxFreq) > k, shrink from left by moving l.
-  4. Track maxLen as the largest valid window length.
-
+2. Sliding Window O(n): 
+    - steps: Expand a window with two pointers, track the most frequent character, and shrink from the left whenever (window length – max frequency) > k to maintain the longest valid window.
 */
 
+/*
+Approach 1: Brute Force
+Time: O(n^2)
+Space: O(1)
+*/
 const characterReplacement_bruteforce = (s, k) => {
-  // 1) For each start i, clear freq and maxFreq = 0
-  // 2) Extend j from i to end:
-  //    - Increment freq[s[j]] and update maxFreq
-  //    - Update maxFreq if needed
-  //    - Let len = j - i + 1, diff = len - maxFreq.
-  //    - If diff ≤ k, update maxLen.
-  //    - If diff > k, break (diff cannot decrease as j grows).
+  //  1. Use index i as the start of each substring
+  //  2. Move index j forward, update frequency of chars and track the highest frequency
+  //  3. Compute replacements = (substring length – highest frequency)
+  //  4. If replacements ≤ k, the substring is valid → record max length
+  //  5. If replacements > k, break (replacements doesn't decrease as j grows)
   let maxLen = 0;
 
   for (let i = 0; i < s.length; i++) {
@@ -64,6 +59,41 @@ const characterReplacement_bruteforce = (s, k) => {
         break;
       }
     }
+  }
+  return maxLen;
+};
+
+/*
+Approach 2: Sliding Window
+Time: O(n)
+Space: O(1)
+*/
+const characterReplacement_slidingwindow = (s, k) => {
+  // 1. Use two pointers l, r and a frequency map.
+  // 2. Expand r each step, increment freq[s[r]], update maxFreq.
+  // 3. If (window length – maxFreq) > k, shrink from left by moving l.
+  // 4. Track maxLen as the largest valid window length.
+
+  const freq = {};
+  let l = 0; // left pointer
+  let maxFreq = 0; // highest frequency in current window
+  let maxLen = 0;
+
+  for (let r = 0; r < s.length; r++) {
+    const char = s[r];
+    freq[char] = (freq[char] || 0) + 1;
+    maxFreq = Math.max(maxFreq, freq[char]);
+
+    const windowLen = r - l + 1;
+    const replacements = windowLen - maxFreq;
+
+    if (replacements > k) {
+      // shrink from left
+      freq[s[l]]--;
+      l++;
+    }
+
+    maxLen = Math.max(maxLen, r - l + 1);
   }
   return maxLen;
 };
