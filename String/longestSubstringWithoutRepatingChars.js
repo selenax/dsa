@@ -12,7 +12,7 @@ Approaches:
 1. Brute Force - O(n^2)
 	- steps: For each char as a starting point, compare len of all possible substrings that contain no duplicate characters
 	✅ Pros: easy to reason
-    ❌ Cons: too slow for large n 
+  ❌ Cons: too slow for large n 
 
 2. Best Approach: Sliding window & hash map - O(n)
 	- steps: Use two pointers (start and i) to form a sliding window. 
