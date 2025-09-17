@@ -71,7 +71,7 @@ Space: O(1)
 const characterReplacement_slidingwindow = (s, k) => {
   // 1. Use two pointers l, r and a frequency map.
   // 2. Expand r each step, increment freq[s[r]], update maxFreq.
-  // 3. If (window length – maxFreq) > k, shrink from left by moving l.
+  // 3. If (window length – maxFreq) > k, shrink from left by moving l & update freq map
   // 4. Track maxLen as the largest valid window length.
 
   const freq = {};
@@ -89,7 +89,7 @@ const characterReplacement_slidingwindow = (s, k) => {
 
     if (replacements > k) {
       // shrink from left
-      freq[s[l]]--;
+      freq[s[l]]--; // update freq map
       l++;
     }
 
@@ -97,3 +97,5 @@ const characterReplacement_slidingwindow = (s, k) => {
   }
   return maxLen;
 };
+
+console.log(characterReplacement_slidingwindow('AABABBA', 1));
