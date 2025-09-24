@@ -24,17 +24,24 @@ Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]]
 
 Approaches: 
 1. Brute Force - O(N^3)
-  - steps: Using 3 nested loops to find all possible unique combination triplets that sums up to 0; space: O(1)
+  - steps: 
+      1. Using 3 nested loops (i,j,k) to find all possible unique combination triplets that sums up to 0
+      2. preserve uniqueness by sorting each valid triplet and add as string in Set(). 
+      3. map over Set and JSON.parse each string back into array.  
 
-2. 
+2. Optimized: Two Pointer - O(N)
+  - steps: 
+    1. first sort 
+    2. using 1 loop, anchoring index i while moving pointer j and k to find target 
+
 -----
 
-1. input: array of integers 
-2. output: array of arrays, each inner array has exactly 3 integers 
-3. summary: find all unique triplets that sum to 0; 
+* input: array of integers 
+* output: array of arrays, each inner array has exactly 3 integers 
+* summary: find all unique triplets that sum to 0; 
   - [0,0,0] is valid if 3 zero are from diff indices and is the only [0,0,0] triplet 
   - [1,-1,0], [0,1,-1] count as 1 unqiue triplet 
-4. constraints: 
+* constraints: 
   - n < 3
   - no valid answer 
   - duplicate elements that could form the same triplet
@@ -65,62 +72,64 @@ const threeSum_bruteforce = (nums) => {
   return Array.from(resultSet).map((s) => JSON.parse(s));
 };
 
-// /* use 3 pointers approach - (x,y,z) - anchor x, and move y and z around to find target
+// Two Pointer
+// Time: O(N^2) - i runs n times, while loop (j,k) potentially running n times; O(n^2) * sorting-O(n log n) = O(n^2)
+// Space: O(1) - i,j,k and temp sum
+const threeSum_twopointer = (nums) => {
+  // sort array to handle duplicate and enable two pointer techique
+  // anchor i starting at index 0
+  // for each i, initialize 2 pointers: j = i + 1, k = last index
+  //   as j and k move toward each other, check sum n[i] + n[j] + n[k]
+  //   1. sum = target, add triplet to result, check for duplicates of j and k since this triplet is no longer unique.
+  //   2. sum < target, j++
+  //   3. sum > target, k--
+  // also check i for duplicate to avoid same anchor
 
-// 	1. sort array to both help handle duplicate and use 2 pointer technique
-// 	2. anchor x starting index 0
-// 	3. for each x, initalize two pointers: y at x + 1, z at the end of the array
-// 	4. as y and z move toward each other, we check sum: arr[x] + arr[y] + arr[z]
-// 		1. if sum = target, add these triplets to result and check for y & z duplicates as the curr combination is no longer unique
-// 		2. if sum < target, incrememt y
-// 		3. if sum > target, decrement z
-// 	5. also check x for duplicates to avoid same anchor
+  if (nums.length < 3) return [];
 
-// 	Edge case:
-// 	1. if array has fewer than 3 elements return early w/ []
-// */
+  let result = [];
 
-// const threeSum = (nums) => {
-//   let result = [];
+  nums.sort((a, b) => a - b);
 
-//   // shallow copy of sorted arry
-//   const sorted = [...nums].sort((a, b) => a - b);
+  for (let i = 0; i < nums.length - 2; i++) {
+    // check for duplicate x
+    if (i > 0 && nums[i] === nums[i - 1]) continue;
 
-//   // x stops 2 indices before end of array taking into account of y and z
-//   for (let x = 0; x < sorted.length - 2; x++) {
-//     // check x duplicates & avoid comparing array[-1]
-//     if (x > 0 && sorted[x] === sorted[x - 1]) continue;
+    // initialize j & k
+    let j = i + 1,
+      k = nums.length - 1;
 
-//     let y = x + 1;
-//     let z = sorted.length - 1;
+    while (j < k) {
+      let sum = nums[i] + nums[j] + nums[k];
 
-//     while (y < z) {
-//       let sum = sorted[x] + sorted[y] + sorted[z];
-//       // found target
-//       if (sum === 0) {
-//         result.push([sorted[x], sorted[y], sorted[z]]);
+      // case 1: found target
+      if (sum === 0) {
+        result.push([nums[i], nums[j], nums[k]]);
 
-//         // check for next duplicate y & z; y < z guard for edge cases like [0, 0, 0, 0] to stay in bound
-//         while (y < z && sorted[y] === sorted[y + 1]) y++;
-//         while (y < z && sorted[z] === sorted[z - 1]) z--;
+        // skip duplicates
+        while (j < k && nums[j] === nums[j + 1]) j++;
+        while (j < k && nums[k] === nums[k - 1]) k--;
 
-//         // increment & decrement y and z to check for next sum
-//         y++;
-//         z--;
-//       } else if (sum < 0) {
-//         y++;
-//       } else {
-//         z--;
-//       }
-//     }
-//   }
-//   return result;
-// };
-// console.log(threeSum([])); //[]
-// console.log(threeSum([-1, 0, 1, 2, -1, -4])); //[[-1,-1,2],[-1,0,1]]
-// console.log(threeSum([0, 1, 1])); //[]
-// console.log(threeSum([0, 0, 0])); //[[0,0,0]]
-// console.log(threeSum([-2, 0, 1, 1, 2])); // [[-2, 0, 2], [-2, 1, 1]]
-// console.log(threeSum([-1, 0, 1, 0])); // [[-1, 0, 1]]
-// console.log(threeSum([-4, -2, -2, -2, 0, 1, 2, 2, 2, 3, 3, 4, 4, 6, 6]));
-// // [[-4, -2, 6], [-4, 0, 4], [-4, 1, 3], [-4, 2, 2], [-2, -2, 4], [-2, 0, 2]]
+        // get ready for next sum
+        j++;
+        k--;
+
+        // case 2: sum < 0
+      } else if (sum < 0) {
+        j++;
+      } else {
+        // case 3: sum > 0
+        k--;
+      }
+    }
+  }
+  return result;
+};
+console.log(threeSum_twopointer([])); //[]
+console.log(threeSum_twopointer([-1, 0, 1, 2, -1, -4])); //[[-1,-1,2],[-1,0,1]]
+console.log(threeSum_twopointer([0, 1, 1])); //[]
+console.log(threeSum_twopointer([0, 0, 0])); //[[0,0,0]]
+console.log(threeSum_twopointer([-2, 0, 1, 1, 2])); // [[-2, 0, 2], [-2, 1, 1]]
+console.log(threeSum_twopointer([-1, 0, 1, 0])); // [[-1, 0, 1]]
+console.log(threeSum_twopointer([-4, -2, -2, -2, 0, 1, 2, 2, 2, 3, 3, 4, 4, 6, 6]));
+// [[-4, -2, 6], [-4, 0, 4], [-4, 1, 3], [-4, 2, 2], [-2, -2, 4], [-2, 0, 2]]
