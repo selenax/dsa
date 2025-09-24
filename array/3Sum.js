@@ -1,5 +1,3 @@
-// take away: each combination need to be unqiue (order doesn't matter) & value inside combination can be repeated as long as they are from diff indices
-
 /*
 Problem: 3Sum (Leetcode-15 MEDIUM)
 Category: Array
@@ -22,7 +20,8 @@ Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]]
 
 -----
 
-Approaches: 
+*** Approaches ***
+
 1. Brute Force - O(N^3)
   - steps: 
       1. Using 3 nested loops (i,j,k) to find all possible unique combination triplets that sums up to 0
@@ -46,7 +45,7 @@ Approaches:
   - no valid answer 
   - duplicate elements that could form the same triplet
 
- */
+*/
 
 // Brute Force - Time:O(N^3) SPACE:O(1) - i,j,k
 const threeSum_bruteforce = (nums) => {
@@ -92,7 +91,7 @@ const threeSum_twopointer = (nums) => {
   nums.sort((a, b) => a - b);
 
   for (let i = 0; i < nums.length - 2; i++) {
-    // check for duplicate x
+    // check for duplicate x & stay in bound
     if (i > 0 && nums[i] === nums[i - 1]) continue;
 
     // initialize j & k
@@ -106,7 +105,7 @@ const threeSum_twopointer = (nums) => {
       if (sum === 0) {
         result.push([nums[i], nums[j], nums[k]]);
 
-        // skip duplicates
+        // skip duplicates & stay in bound
         while (j < k && nums[j] === nums[j + 1]) j++;
         while (j < k && nums[k] === nums[k - 1]) k--;
 
