@@ -23,43 +23,58 @@ Sample Input
 
 *** Approach ***
 
-1. Stack: O(N)
-    - steps: Using push and pop to keep track of valid pairs. 
+1. Input: String
+2. Output: YES/NO
+3. Goal: Given string of only ()[]{}, decide if brackets are balanced 
+4. Edge: 
+    - odd length: return NO 
+    - empty: return yes 
 
------
+Steps:
+Use a stack to track expected closing brackets
+Push matching closing bracket whenever we see an opening
+When we see a closing bracket, it must match the top of stack
+If mismatch or stack empty at wrong time → invalid
+After iteration, stack must be empty for string to be valid
 
-input: string of open/close brackets 
-output: YES/NO
-goal: check to see if all open brackets has a closing matching counterpart in the correct order 
-constraints:
-    - str.len < 2 return NO 
-    - {}() return YES
-    - {[]} return YES 
-
+Time: O(N)
+Space: O(N)
 */
 
 const isValid = (s) => {
-  if (s.length < 2) return 'NO'; // base case
+  // if odd len return no
+  // init empty stack
+  // for each char in s
+  //     if char is opening
+  //         push its expected closing onto stack
+  //     else (char is closing)
+  //         stack is empty or stack.pop() !== char return NO
+  // after loop
+  //     stack len empty return YES
+  //     else return NO
+
+  if (s.length % 2 == 1) return 'NO'; // odd length
 
   let stack = [];
 
-  // hash up lookup
-  const hash = {
+  // hash map lookup
+  const hashMap = {
     '[': ']',
     '{': '}',
     '(': ')',
   };
 
-  for (let i of s) {
-    if (hash[i]) {
-      stack.push(hash[i]); // add open bracket
+  for (let char of s) {
+    if (hashMap[char]) {
+      stack.push(hashMap[char]);
     } else {
-      // closing bracket should be a matching pair with last open bracket on stack
-      if (i !== stack.pop()) return 'NO';
+      if (!stack.length || stack.pop() !== char) return 'NO';
     }
   }
-  return 'YES';
+  return stack.length === 0 ? 'YES' : 'NO';
 };
 
 console.log(isValid('{[()]}'));
 console.log(isValid('{[(]]}'));
+console.log(isValid(''));
+console.log(isValid('()[]'));
